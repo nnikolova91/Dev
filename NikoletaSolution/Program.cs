@@ -2,12 +2,912 @@
 
 namespace NikoletaSolution
 {
-    class Program
+    class Progra
     {
         static void Main()
         {
+            string mesec = Console.ReadLine();
+            int brNoshtuvki = int.Parse(Console.ReadLine());
+
+            decimal cenaApartament = 0;
+            decimal cenaStudio = 0;
+
+            if (mesec == "May" || mesec == "October")
+            {
+                cenaApartament = 65;
+                cenaStudio = 50;
+                if (brNoshtuvki > 7 && brNoshtuvki <= 14)
+                {
+                    cenaStudio = 50 - 0.05m * 50;
+                }
+                if (brNoshtuvki > 14)
+                {
+                    cenaStudio = cenaStudio - 0.3m * cenaStudio;
+                    cenaApartament = cenaApartament - 0.1m * cenaApartament;
+                }
+            }
+            if (mesec == "June" || mesec == "September")
+            {
+                cenaApartament = 68.70m;
+                cenaStudio = 75.20m;
+                if (brNoshtuvki > 14)
+                {
+                    cenaStudio = 75.20m - 0.2m * 75.20m;
+                    cenaApartament = 68.70m - 0.1m * 68.70m;
+                }
+            }
+            if (mesec == "July" || mesec == "August")
+            {
+                cenaApartament = 77;
+                cenaStudio = 76;
+                if (brNoshtuvki > 14)
+                {
+                    cenaApartament = 77 - 0.1m * 77m;
+                }
+            }
+            Console.WriteLine("Apartment: {0:f2} lv.", cenaApartament * brNoshtuvki);
+            Console.WriteLine("Studio: {0:f2} lv.", cenaStudio * brNoshtuvki);
+        }
 
 
+        /// <summary>
+        /// 17 Iuli 2016   ZAda4a   3
+        /// </summary>
+        static void BiletiZaMa4a()
+        {
+            decimal pari = decimal.Parse(Console.ReadLine());
+            string kategoriq = Console.ReadLine();
+            int brh = int.Parse(Console.ReadLine());
+            decimal parizabileti = 0;
+            decimal parizaput = 0;
+            if (brh >= 1 && brh <= 4)
+            {
+                parizaput = 0.75m * pari;
+
+            }
+            if (brh >= 5 && brh <= 9)
+            {
+                parizaput = 0.6m * pari;
+            }
+            if (brh >= 10 && brh <= 24)
+            {
+                parizaput = 0.5m * pari;
+            }
+            if (brh >= 25 && brh <= 49)
+            {
+                parizaput = 0.4m * pari;
+            }
+            if (brh >= 50)
+            {
+                parizaput = 0.25m * pari;
+            }
+            if (kategoriq == "VIP")
+            {
+                parizabileti = brh * 499.99m;
+            }
+            if (kategoriq == "Normal")
+            {
+                parizabileti = brh * 249.99m;
+            }
+            if (pari > parizaput + parizabileti)
+            {
+                Console.WriteLine("Yes! You have {0:f2} leva left.", pari - (parizaput + parizabileti));
+            }
+            if (pari < parizaput + parizabileti)
+            {
+                Console.WriteLine("Not enough money! You need {0:f2} leva.", (parizaput + parizabileti) - pari);
+            }
+        }
+
+        /// <summary>
+        /// 24 April 2016    Zada4a 3
+        /// </summary>
+        static void OperaciiMejduChisla()
+        {
+            double n = double.Parse(Console.ReadLine());
+            double n1 = double.Parse(Console.ReadLine());
+            string oper = Console.ReadLine();
+
+            if (n1 == 0)
+            {
+                Console.WriteLine("Cannot divide {0} by zero", n);
+            }
+            else if (oper == "+" || oper == "-" || oper == "*")
+            {
+                if (oper == "+")
+                {
+                    Console.Write("{0} + {1} = {2} ", n, n1, n + n1);
+                    if ((n + n1) % 2 == 0)
+                    {
+                        Console.WriteLine("- even");
+                    }
+                    else
+                    {
+                        Console.WriteLine("- odd");
+                    }
+
+                }
+                if (oper == "-")
+                {
+                    Console.Write("{0} - {1} = {2} ", n, n1, n - n1);
+                    if ((n - n1) % 2 == 0)
+                    {
+                        Console.WriteLine("- even");
+                    }
+                    else
+                    {
+                        Console.WriteLine("- odd");
+                    }
+
+                }
+                if (oper == "*")
+                {
+                    Console.Write("{0} * {1} = {2} ", n, n1, n * n1);
+                    if ((n * n1) % 2 == 0)
+                    {
+                        Console.WriteLine("- even");
+                    }
+                    else
+                    {
+                        Console.WriteLine("- odd");
+                    }
+
+
+                }
+            }
+            else if (oper == "/")
+            {
+
+                Console.WriteLine("{0} / {1} = {2:f2} ", n, n1, n / n1);
+
+            }
+            else if (oper == "%")
+            {
+
+                Console.WriteLine("{0} % {1} = {2} ", n, n1, n % n1);
+            }
+        }
+
+
+        /// <summary>
+        /// 6 Mart 2016   Zada4a 3
+        /// </summary>
+        static void NiVremeZaIzpit()
+        {
+            int chiz = int.Parse(Console.ReadLine());
+            int miniz = int.Parse(Console.ReadLine());
+            int chpr = int.Parse(Console.ReadLine());
+            int minpr = int.Parse(Console.ReadLine());
+
+
+
+            int ciz = chiz * 60 + miniz;
+            int cpr = chpr * 60 + minpr;
+            int rmin = 0;
+            if (ciz >= cpr && ciz - cpr <= 30)
+            {
+                rmin = ciz - cpr;
+                Console.WriteLine("On time");
+                Console.WriteLine("{0} minutes before the start", rmin);
+
+            }
+            if (ciz > cpr && ciz == cpr || ciz - cpr > 30)
+            {
+                rmin = ciz - cpr;
+
+                if (rmin < 60)
+                {
+                    Console.WriteLine("Early");
+                    Console.WriteLine("{0} minutes before the start", rmin);
+                }
+                if (rmin >= 60)
+                {
+                    if (rmin % 60 < 10)
+                    {
+                        Console.WriteLine("Early");
+                        Console.WriteLine("{0}:0{1} hours before the start", rmin / 60, rmin % 60);
+                    }
+                    if (rmin % 60 >= 10)
+                    {
+                        Console.WriteLine("Early");
+                        Console.WriteLine("{0}:{1} hours before the start", rmin / 60, rmin % 60);
+                    }
+                }
+
+            }
+            if (cpr > ciz)
+            {
+                rmin = cpr - ciz;
+                if (rmin < 60)
+                {
+                    Console.WriteLine("Late");
+                    Console.WriteLine("{0} minutes after the start", rmin);
+                }
+                if (rmin >= 60)
+                {
+                    if (rmin % 60 < 10)
+                    {
+                        Console.WriteLine("Late");
+                        Console.WriteLine("{0}:0{1} hours after the start", rmin / 60, rmin % 60);
+                    }
+                    if (rmin % 60 >= 10)
+                    {
+                        Console.WriteLine("Late");
+                        Console.WriteLine("{0}:{1} hours after the start", rmin / 60, rmin % 60);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 26 Mart 2016 zada4a 3
+        /// </summary>
+        static void Puteshestvie()
+        {
+            decimal pari = decimal.Parse(Console.ReadLine());
+            string sezon = Console.ReadLine();
+            string mqsto = "am";
+            string hot = "ba";
+            decimal cena = 0;
+            if (sezon == "summer")
+            {
+                if (pari <= 100)
+                {
+                    mqsto = "Bulgaria";
+                    hot = "Camp";
+                    cena = pari * 0.3m;
+                }
+                if (pari > 100 && pari <= 1000)
+                {
+                    mqsto = "Balkans";
+                    hot = "Camp";
+                    cena = pari * 0.4m;
+                }
+            }
+            if (sezon == "winter")
+            {
+                if (pari <= 100)
+                {
+                    mqsto = "Bulgaria";
+                    hot = "Hotel";
+                    cena = pari * 0.7m;
+                }
+                if (pari > 100 && pari <= 1000)
+                {
+                    mqsto = "Balkans";
+                    hot = "Hotel";
+                    cena = pari * 0.8m;
+                }
+            }
+            if (pari > 1000)
+            {
+                mqsto = "Europe";
+                hot = "Hotel";
+                cena = pari * 0.9m;
+            }
+            Console.WriteLine("Somewhere in {0}", mqsto);
+            Console.Write("{0}", hot);
+            Console.Write(" - ");
+            Console.WriteLine("{0:f2}", cena);
+
+        }
+
+        /// <summary>
+        /// 4as + 15 minuti    Zada4a   15
+        /// </summary>
+        static void Logi4Proverki()
+        {
+            int ch = int.Parse(Console.ReadLine());
+            int min = int.Parse(Console.ReadLine());
+            int nmin = 0;
+
+            if (min + 15 > 60 && ch < 23)
+            {
+                ch++;
+                nmin = min + 15 - 60;
+                if (nmin < 10)
+                {
+                    Console.WriteLine("{0}:0{1}", ch, nmin);
+                }
+                if (nmin >= 10)
+                {
+                    Console.WriteLine("{0}:{1}", ch, nmin);
+                }
+            }
+            if (min + 15 == 60 && ch < 23)
+            {
+                ch++;
+                Console.WriteLine("{0}:00", ch);
+            }
+            if (min + 15 < 60 && ch <= 23)
+            {
+                Console.WriteLine("{0}:{1}", ch, min + 15);
+            }
+            if (ch == 23 && min + 15 > 60)
+            {
+                ch = 0;
+                nmin = min + 15 - 60;
+                if (nmin < 10)
+                {
+                    Console.WriteLine("0:0{1}", ch, nmin);
+                }
+                if (nmin >= 10)
+                {
+                    Console.WriteLine("0:{1}", ch, nmin);
+                }
+            }
+            if (ch == 23 && min == 45)
+            {
+                Console.WriteLine("0:00");
+            }
+        }
+
+        /// <summary>
+        /// 4islata ot 0 do 100 s dumi      zada4a 17*
+        /// </summary>
+        static void ProstiLogi4Presmqtaniq()
+        {
+            int m = int.Parse(Console.ReadLine());
+            if (m > 20 && m < 100)
+            {
+                int k = m / 10;
+                if (k == 2)
+                {
+                    Console.Write("twenty");
+                }
+                if (k == 3)
+                {
+                    Console.Write("thirty");
+                }
+                if (k == 4)
+                {
+                    Console.Write("forty");
+                }
+                if (k == 5)
+                {
+                    Console.Write("fifty");
+                }
+                if (k == 6)
+                {
+                    Console.Write("sixty");
+                }
+                if (k == 7)
+                {
+                    Console.Write("seventy");
+                }
+                if (k == 8)
+                {
+                    Console.Write("eighty");
+                }
+                if (k == 9)
+                {
+                    Console.Write("ninety");
+                }
+                int l = m % 10;
+                if (l == 1)
+                {
+                    Console.WriteLine(" one");
+                }
+                if (l == 2)
+                {
+                    Console.WriteLine(" two");
+                }
+                if (l == 3)
+                {
+                    Console.WriteLine(" three");
+                }
+                if (l == 4)
+                {
+                    Console.WriteLine(" four");
+                }
+                if (l == 5)
+                {
+                    Console.WriteLine(" five");
+                }
+                if (l == 6)
+                {
+                    Console.WriteLine(" six");
+                }
+                if (l == 7)
+                {
+                    Console.WriteLine(" seven");
+                }
+                if (l == 8)
+                {
+                    Console.WriteLine(" eight");
+                }
+                if (l == 9)
+                {
+                    Console.WriteLine(" nine");
+                }
+
+            }
+            else if (m <= 20)
+            {
+                if (m == 1)
+                {
+                    Console.WriteLine("one");
+                }
+                if (m == 2)
+                {
+                    Console.WriteLine("two");
+                }
+                if (m == 3)
+                {
+                    Console.WriteLine("three");
+                }
+                if (m == 4)
+                {
+                    Console.WriteLine("four");
+                }
+                if (m == 5)
+                {
+                    Console.WriteLine("five");
+                }
+                if (m == 6)
+                {
+                    Console.WriteLine("six");
+                }
+                if (m == 7)
+                {
+                    Console.WriteLine("seven");
+                }
+                if (m == 8)
+                {
+                    Console.WriteLine("eight");
+                }
+                if (m == 9)
+                {
+                    Console.WriteLine("nine");
+                }
+                if (m == 10)
+                {
+                    Console.WriteLine("ten");
+                }
+                if (m == 11)
+                {
+                    Console.WriteLine("eleven");
+                }
+                if (m == 12)
+                {
+                    Console.WriteLine("twelve");
+                }
+                if (m == 13)
+                {
+                    Console.WriteLine("thirteen");
+                }
+                if (m == 14)
+                {
+                    Console.WriteLine("fourteen");
+                }
+                if (m == 15)
+                {
+                    Console.WriteLine("fifteen");
+                }
+                if (m == 16)
+                {
+                    Console.WriteLine("sixteen");
+                }
+                if (m == 17)
+                {
+                    Console.WriteLine("seventeen");
+                }
+                if (m == 18)
+                {
+                    Console.WriteLine("eighteen");
+                }
+                if (m == 19)
+                {
+                    Console.WriteLine("nineteen");
+                }
+                if (m == 20)
+                {
+                    Console.WriteLine("twenty");
+                }
+            }
+            if (m == 100)
+            {
+                Console.WriteLine("one hundred");
+            }
+            if (m == 0)
+            {
+                Console.WriteLine("zero");
+            }
+            if (m < 0 || m > 100)
+            {
+                Console.WriteLine("invalid number");
+            }
+        }
+
+        /// <summary>
+        /// Ednakvi dumi  Zada4a 12
+        /// </summary>
+        static void ProstiLogi4eskiPresmqtamiq()
+        {
+            string word = Console.ReadLine();
+            string word1 = Console.ReadLine();
+            word = word.ToLower();
+            word1 = word1.ToLower();
+            if (word == word1)
+            {
+                Console.WriteLine("yes");
+            }
+            else
+            {
+                Console.WriteLine("no");
+            }
+        }
+
+        /// <summary>
+        /// Prosti Logi4eski Proverki Zada4a 9
+        /// </summary>
+        static void MerniEdinici()
+        {
+            float ch = float.Parse(Console.ReadLine());
+            string ed = Console.ReadLine();
+            string dv = Console.ReadLine();
+            if (ed == "m")
+            {
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch * 1000);
+                }
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch * 100);
+                }
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch * 0.000621371192);
+                }
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch * 39.3700787);
+                }
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch * 0.001);
+                }
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch * 3.2808399);
+                }
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch * 1.0936133);
+                }
+            }
+            if (ed == "mm")
+            {
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1000);
+                }
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1000 * 100);
+                }
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1000 * 0.000621371192);
+                }
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1000 * 39.3700787);
+                }
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1000 * 0.001);
+                }
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1000 * 3.2808399);
+                }
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1000 * 1.0936133);
+                }
+            }
+            if (ed == "cm")
+            {
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 100 * 1000);
+                }
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch / 100);
+                }
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch / 100 * 0.000621371192);
+                }
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch / 100 * 39.3700787);
+                }
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch / 100 * 0.001);
+                }
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch / 100 * 3.2808399);
+                }
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch / 100 * 1.0936133);
+                }
+            }
+            if (ed == "mi")
+            {
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.000621371192 * 1000);
+                }
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.000621371192 * 100);
+                }
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.000621371192);
+                }
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.000621371192 * 39.3700787);
+                }
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.000621371192 * 0.001);
+                }
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.000621371192 * 3.2808399);
+                }
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.000621371192 * 1.0936133);
+                }
+            }
+            if (ed == "in")
+            {
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 39.3700787 * 1000);
+                }
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 39.3700787 * 100);
+                }
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch / 39.3700787 * 0.000621371192);
+                }
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch / 39.3700787);
+                }
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch / 39.3700787 * 0.001);
+                }
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch / 39.3700787 * 3.2808399);
+                }
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch / 39.3700787 * 1.0936133);
+                }
+            }
+            if (ed == "km")
+            {
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.001 * 1000);
+                }
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.001 * 100);
+                }
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.001 * 0.000621371192);
+                }
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.001 * 39.3700787);
+                }
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.001);
+                }
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.001 * 3.2808399);
+                }
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch / 0.001 * 1.0936133);
+                }
+            }
+            if (ed == "ft")
+            {
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 3.2808399 * 1000);
+                }
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 3.2808399 * 100);
+                }
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch / 3.2808399 * 0.000621371192);
+                }
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch / 3.2808399 * 39.3700787);
+                }
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch / 3.2808399 * 0.001);
+                }
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch / 3.2808399);
+                }
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch / 3.2808399 * 1.0936133);
+                }
+            }
+            if (ed == "yd")
+            {
+                if (dv == "yd")
+                {
+                    Console.WriteLine("{0:f8}", ch);
+                }
+                if (dv == "mm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1.0936133 * 1000);
+                }
+                if (dv == "cm")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1.0936133 * 100);
+                }
+                if (dv == "mi")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1.0936133 * 0.000621371192);
+                }
+                if (dv == "in")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1.0936133 * 39.3700787);
+                }
+                if (dv == "km")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1.0936133 * 0.001);
+                }
+                if (dv == "ft")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1.0936133 * 3.2808399);
+                }
+                if (dv == "m")
+                {
+                    Console.WriteLine("{0:f8}", ch / 1.0936133);
+                }
+            }
+        }
+
+        /// <summary>
+        /// PROSTI PRESMQTANIQ   zada4a 13*
+        /// </summary>
+        static void MejduvalutenKonvertor()
+        {
+            double suma = double.Parse(Console.ReadLine());
+            string vh = Console.ReadLine();
+            string iz = Console.ReadLine();
+
+
+            if (vh == "BGN")
+
+            {
+                if (iz == "USD")
+                {
+                    Console.WriteLine(Math.Round(suma / 1.79569, 2));
+                }
+                if (iz == "EUR")
+                {
+                    Console.WriteLine(Math.Round(suma / 1.95583, 2));
+                }
+                if (iz == "GBP")
+                {
+                    Console.WriteLine(Math.Round(suma / 2.53405, 2));
+                }
+            }
+            if (vh == "USD")
+
+            {
+                if (iz == "BGN")
+                {
+                    Console.WriteLine(Math.Round(suma * 1.79569, 2));
+                }
+                if (iz == "EUR")
+                {
+                    Console.WriteLine(Math.Round(suma * 1.79549 / 1.95583, 2));
+                }
+                if (iz == "GBP")
+                {
+                    Console.WriteLine(Math.Round(suma * 1.79569 / 2.53405, 2));
+                }
+            }
+            if (vh == "EUR")
+
+            {
+                if (iz == "USD")
+                {
+                    Console.WriteLine(Math.Round(suma * 1.95583 / 1.79569, 2));
+                }
+                if (iz == "BGN")
+                {
+                    Console.WriteLine(Math.Round(suma * 1.95583, 2));
+                }
+                if (iz == "GBP")
+                {
+                    Console.WriteLine(Math.Round(suma * 1.95583 / 2.53405, 2));
+                }
+            }
+            if (vh == "GBP")
+
+            {
+                if (iz == "USD")
+                {
+                    Console.WriteLine(Math.Round(suma * 2.53405 / 1.79569, 2));
+                }
+                if (iz == "EUR")
+                {
+                    Console.WriteLine(Math.Round(suma * 2.53405 / 1.95583, 2));
+                }
+                if (iz == "BGN")
+                {
+                    Console.WriteLine(Math.Round(suma * 2.53405, 2));
+                }
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        static void RRR()
+        {
             int n = int.Parse(Console.ReadLine());
             int brk = 0;
             if (n % 3 == 1)
@@ -65,6 +965,7 @@ namespace NikoletaSolution
                 }
             }
         }
+
 
         /// <summary>
         /// 18 Oktomvri 2015 zada4a - 3
@@ -848,7 +1749,7 @@ namespace NikoletaSolution
             Zadacha5Bradva();
         }
 
-        private static void Zadacha5Bradva()
+        static void Zadacha5Bradva()
         {
             int n = int.Parse(Console.ReadLine());
             int brt = -1;
@@ -1575,3 +2476,5 @@ namespace NikoletaSolution
         }
     }
 }
+
+
