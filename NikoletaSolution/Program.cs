@@ -1,10 +1,3097 @@
 ﻿using System;
+using System.Linq;
 
 namespace NikoletaSolution
 {
-    class Progra
+    class StartUp
     {
         static void Main()
+        {
+            int[] arr = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            int broi4 = 1;
+            int maxBroi4 = 0;
+            int chislo = 0;
+
+            for (int i = 1; i <= arr.Length - 1; i++)
+            {
+                if (arr[i - 1] + 1 == arr[i])
+                {
+                    broi4++;
+                    if (broi4 > maxBroi4)
+                    {
+                        maxBroi4 = broi4;
+                        chislo = arr[i];
+                    }
+
+                }
+                else
+                {
+                    broi4 = 1;
+                }
+            }
+            for (int i = chislo - maxBroi4 + 1; i <= chislo; i++)
+            {
+                Console.Write(i);
+                Console.Write(" ");
+            }
+
+        }
+        /// <summary>
+        /// Preobladava6ti ednakvi elementi v masiv  Zada4a 6
+        /// </summary>
+        static void MasiviUPRZada4a6()
+        {
+            int[] arr = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            int broi4 = 1;
+            int maxBroi4 = 0;
+            int chislo = 0;
+
+            for (int i = 1; i < arr.Length - 1; i++)
+            {
+                if (arr[i] == arr[i+1])
+                {
+                    broi4++;
+                    if (broi4 > maxBroi4)
+                    {
+                        maxBroi4 = broi4;
+                        chislo = arr[i];
+                    }
+
+                }
+                else
+                {
+                    broi4 = 1;
+                }
+            }
+            for (int i = 0 ; i < maxBroi4; i++)
+            {
+                Console.Write(chislo);
+                Console.Write(" ");
+            }
+        }
+
+        /// <summary>
+        ///  Namirane na vsi4ki prosti 4isla v interval     Zada4a   4
+        /// </summary>
+        static void MasiviUPRZada4a4()
+        {
+            int n = int.Parse(Console.ReadLine());
+            bool[] primes = new bool[n + 1];
+            for (int i = 0; i < primes.Length; i++)
+            {
+                primes[i] = true;
+            }
+            for (int i = 2; i < Math.Sqrt(n); i++)
+            {
+                if (primes[i])
+                {
+                    for (int j = i * i; j < primes.Length; j += i)
+                    {
+                        primes[j] = false;
+                    }
+                }
+            }
+
+            for (int i = 2; i < primes.Length; i++)
+            {
+                if (primes[i])
+                {
+                    Console.Write(i);
+                    Console.WriteLine(" ");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 4islo razdelq6to masiv na dve polovini s ednakuv sbor na elementite  Zada4a 11
+        /// </summary>
+        static void MasiviUPRZada4a11()
+        {
+            int[] numbers = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            bool isFind = false;
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                int[] leftSide = numbers.Take(i).ToArray();
+                int[] rightSide = numbers.Skip(i + 1).ToArray();
+
+                if (leftSide.Sum() == rightSide.Sum())
+                {
+                    Console.WriteLine(i);
+                    isFind = true;
+                    break;
+                }
+
+            }
+            if (isFind == false)
+            {
+                Console.WriteLine("no");
+            }
+
+        }
+        /// <summary>
+        /// Zavurtane i sumirane Zada4a   2
+        /// </summary>
+        static void MasiviUPRZada4a2()
+        {
+            int[] numbers = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+            int rotation = int.Parse(Console.ReadLine());
+
+            int[] sum = new int[numbers.Length];
+
+            for (int j = 0; j < rotation; j++)
+            {
+
+
+                int reminder = numbers[numbers.Length - 1];
+
+                for (int i = numbers.Length - 1; i > 0; i--)
+                {
+                    numbers[i] = numbers[i - 1];
+                    sum[i] += numbers[i];
+
+                }
+                numbers[0] = reminder;
+                sum[0] += numbers[0];
+            }
+            Console.WriteLine($"{string.Join(" ", sum)}");
+        }
+
+        /// <summary>
+        ///  Obru6tane na elementite Na krainite 4etvurti na masiv Zada4a  3
+        /// </summary>
+        static void MasiviUPRZada4a3()
+        {
+            int[] numbers = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse)
+                .ToArray();
+
+            int k = numbers.Length / 4;
+
+            int[] leftArr = numbers.Take(k).ToArray();
+            int[] middleArr = numbers.Skip(k).Take(k * 2).ToArray();
+            int[] rightArr = numbers.Skip(k * 3).Take(k).ToArray();
+
+            Array.Reverse(leftArr);
+            Array.Reverse(rightArr);
+
+            int[] result = new int[k * 2];
+
+            for (int i = 0; i < k; i++)
+            {
+                result[i] = middleArr[i] + leftArr[i];
+                result[i + k] = middleArr[i + k] + rightArr[i];
+            }
+            Console.WriteLine($"{string.Join(" ", result)}");
+        }
+
+        /// <summary>
+        /// Zada4a    1
+        /// </summary>
+
+        static void MasiviUPRZada4a1()
+        {
+            string[] firstArr = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] secondtArr = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            int leftCount = NamiraneNaMaxCommonItem(firstArr, secondtArr);
+
+            Array.Reverse(firstArr);
+            Array.Reverse(secondtArr);
+            //secondtArr = secondtArr.Reverse().ToArray();
+
+            int rightCount = NamiraneNaMaxCommonItem(firstArr, secondtArr);
+
+            Console.WriteLine($"{Math.Max(leftCount, rightCount)}");
+        }
+
+        private static int NamiraneNaMaxCommonItem(string[] firstArr, string[] secondtArr)
+        {
+            int duljina = Math.Min(firstArr.Length, secondtArr.Length);
+            int count = 0;
+
+            for (int i = 0; i < duljina; i++)
+            {
+                if (firstArr[i] == secondtArr[i])
+                {
+                    count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return count;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static void Simetriq()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int[] arr = new int[n];
+
+            bool symmetric = true;
+
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            for (int k = 0; k < n / 2; k++)
+            {
+                if (arr[k] != arr[n - k - 1])
+                {
+                    symmetric = false;
+                    break;
+                }
+            }
+            Console.WriteLine("Is symmetric? {0}", symmetric);
+        }
+
+        static void Obru6taneNaMasivVobratenRed()
+        {
+            int[] myArray = { 1, 2, 3, 4, 5 };
+            int length = myArray.Length;
+
+            int[] reversed = new int[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                reversed[length - i - 1] = myArray[i];
+            }
+            for (int i = 0; i < length; i++)
+            {
+                Console.Write(reversed[i] + " ");
+            }
+        }
+
+        static void Zada4a6()
+        {
+            int kontrolnaStoinost = int.Parse(Console.ReadLine());
+
+            int br4etvorki = 0;
+            int edno = 0;
+            int dve = 0;
+            int tri = 0;
+            int chet = 0;
+
+            bool ima = false;
+            for (int i = 1; i <= 9; i++)
+            {
+                for (int k = 1; k <= 9; k++)
+                {
+                    for (int l = 1; l <= 9; l++)
+                    {
+                        for (int m = 1; m <= 9; m++)
+                        {
+                            if (i < k && l > m && i * k + l * m == kontrolnaStoinost)
+                            {
+                                br4etvorki++;
+                                Console.Write("{0}{1}{2}{3} ", i, k, l, m);
+                                if (br4etvorki == 4)
+                                {
+                                    edno = i;
+                                    dve = k;
+                                    tri = l;
+                                    chet = m;
+                                    ima = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine();
+            if (ima == true)
+            {
+                Console.WriteLine("Password: {0}{1}{2}{3}", edno, dve, tri, chet);
+            }
+            if (br4etvorki < 4)
+            {
+                Console.WriteLine("No!");
+            }
+        }
+
+        static void Zada4a5()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int brzvezdi4kig = n - 1;
+            int brTo4kig = (n - 1) / 2 + 1;
+
+            int brzd = n - 1;
+            int brtd = (n - 1) / 2 + 1;
+
+            for (int row = 1; row <= 2 * n + 8; row++)
+            {
+                if (row == 1 || row == 2 * n + 8)
+                {
+                    Console.WriteLine("{0}x{0}", new string('.', (3 * n - 1) / 2));
+                }
+                else if (row == 2 || row == n + 4)
+                {
+                    Console.WriteLine("{0}/x\\{0}", new string('.', (3 * n - 3) / 2));
+                }
+                else if (row == 3 || row == 2 * n + 6)
+                {
+                    Console.WriteLine("{0}x|x{0}", new string('.', (3 * n - 3) / 2));
+                }
+                else if (row == n + 5 || row == 2 * n + 7)
+                {
+                    Console.WriteLine("{0}\\x/{0}", new string('.', (3 * n - 3) / 2));
+                }
+
+                else if ((row >= 4 && row <= n / 2 + 4))
+                {
+                    brTo4kig--;
+                    brzvezdi4kig++;
+                    Console.WriteLine("{0}{1}|{1}{0}", new string('.', brTo4kig), new string('x', brzvezdi4kig));
+
+                }
+                else if ((row > n / 2 + 4 && row <= n + 3))
+                {
+                    brTo4kig++;
+                    brzvezdi4kig--;
+                    Console.WriteLine("{0}{1}|{1}{0}", new string('.', brTo4kig), new string('x', brzvezdi4kig));
+                }
+                else if ((row >= n + 5 && row <= n + n / 2 + 6))
+                {
+                    brtd--;
+                    brzd++;
+                    Console.WriteLine("{0}{1}|{1}{0}", new string('.', brtd), new string('x', brzd));
+                }
+                else if ((row > n + n / 2 + 6 && row <= 2 * n + 5))
+                {
+                    brtd++;
+                    brzd--;
+                    Console.WriteLine("{0}{1}|{1}{0}", new string('.', brtd), new string('x', brzd));
+                }
+            }
+        }
+
+        static void Zada4a4()
+        {
+            int broiDni = int.Parse(Console.ReadLine());
+
+            double ob6toKoli4estvoRakiq = 0;
+            double ob6toGradusi = 0;
+
+            for (int i = 1; i <= broiDni; i++)
+            {
+                double koli4estvoRakiq = double.Parse(Console.ReadLine());
+                double gradusRakiq = double.Parse(Console.ReadLine());
+
+                ob6toKoli4estvoRakiq += koli4estvoRakiq;
+                ob6toGradusi += koli4estvoRakiq * gradusRakiq;
+            }
+            Console.WriteLine("Liter: {0:f2}", ob6toKoli4estvoRakiq);
+            Console.WriteLine("Degrees: {0:f2}", ob6toGradusi / ob6toKoli4estvoRakiq);
+
+            if (ob6toGradusi / ob6toKoli4estvoRakiq < 38)
+            {
+                Console.WriteLine("Not good, you should baking!");
+            }
+            else if (ob6toGradusi / ob6toKoli4estvoRakiq >= 38 && ob6toGradusi / ob6toKoli4estvoRakiq <= 42)
+            {
+                Console.WriteLine("Super!");
+            }
+            else if (ob6toGradusi / ob6toKoli4estvoRakiq > 42)
+            {
+                Console.WriteLine("Dilution with distilled water!");
+            }
+        }
+
+        static void Zada4aaaaa3()
+        {
+            string srokNaDogovor = Console.ReadLine();
+            string tipDogovor = Console.ReadLine();
+            string dobavenInternet = Console.ReadLine();
+            int broiMeseci = int.Parse(Console.ReadLine());
+
+            decimal cenaNaMesec = 0;
+            decimal ob6taCena = 0;
+
+            if (tipDogovor == "Small")
+            {
+                if (srokNaDogovor == "one")
+                {
+                    cenaNaMesec = 9.98m;
+                }
+                if (srokNaDogovor == "two")
+                {
+                    cenaNaMesec = 8.58m;
+                }
+            }
+            else if (tipDogovor == "Middle")
+            {
+                if (srokNaDogovor == "one")
+                {
+                    cenaNaMesec = 18.99m;
+                }
+                if (srokNaDogovor == "two")
+                {
+                    cenaNaMesec = 17.09m;
+                }
+            }
+            else if (tipDogovor == "Large")
+            {
+                if (srokNaDogovor == "one")
+                {
+                    cenaNaMesec = 25.98m;
+                }
+                if (srokNaDogovor == "two")
+                {
+                    cenaNaMesec = 23.59m;
+                }
+            }
+            else if (tipDogovor == "ExtraLarge")
+            {
+                if (srokNaDogovor == "one")
+                {
+                    cenaNaMesec = 35.99m;
+                }
+                if (srokNaDogovor == "two")
+                {
+                    cenaNaMesec = 31.79m;
+                }
+            }
+            if (dobavenInternet == "yes")
+            {
+                if (cenaNaMesec <= 10)
+                {
+                    ob6taCena = cenaNaMesec + 5.5m;
+
+                }
+                else if (cenaNaMesec > 10 && cenaNaMesec <= 30)
+                {
+                    ob6taCena = cenaNaMesec + 4.35m;
+                }
+                else if (cenaNaMesec > 30)
+                {
+                    ob6taCena = cenaNaMesec + 3.85m;
+                }
+            }
+            else
+            {
+                ob6taCena = cenaNaMesec;
+            }
+            if (srokNaDogovor == "two")
+            {
+                ob6taCena = ob6taCena - 3.75m / 100 * ob6taCena;
+            }
+
+            Console.WriteLine("{0:f2} lv.", ob6taCena * (decimal)broiMeseci);
+        }
+
+        static void Zada4aaa2()
+        {
+            double brat1 = double.Parse(Console.ReadLine());
+            double brat2 = double.Parse(Console.ReadLine());
+            double brat3 = double.Parse(Console.ReadLine());
+            double vremeZaRibolov = double.Parse(Console.ReadLine());
+
+            double ob6toVreme = 1d / (1d / brat1 + 1d / brat2 + 1d / brat3);
+            double vremeSPo4ivka = ob6toVreme + 0.15d * ob6toVreme;
+            Console.WriteLine("Cleaning time: {0:f2}", vremeSPo4ivka);
+
+            if (vremeZaRibolov >= vremeSPo4ivka)
+            {
+                Console.WriteLine("Yes, there is a surprise - time left -> {0} hours.", Math.Floor(vremeZaRibolov - vremeSPo4ivka));
+            }
+            else if (vremeSPo4ivka > vremeZaRibolov)
+            {
+                Console.WriteLine("No, there isn't a surprise - shortage of time -> {0} hours.", Math.Ceiling(vremeSPo4ivka - vremeZaRibolov));
+            }
+        }
+
+        static void Zad1()
+        {
+            int duljina = int.Parse(Console.ReadLine());
+            int shirinaVSm = int.Parse(Console.ReadLine());
+            int viso4inaVSm = int.Parse(Console.ReadLine());
+            double procenti = double.Parse(Console.ReadLine());
+
+            int obemAkvarium = duljina * shirinaVSm * viso4inaVSm;
+            double ob6toLitri = (double)obemAkvarium * 0.001d;
+            double procent = procenti * 0.01d;
+            double neobhodimiLitri = ob6toLitri * (1d - procent);
+
+            Console.WriteLine("{0:f3}", neobhodimiLitri);
+        }
+        /// <summary>
+        /// STOP
+        /// </summary>
+        static void STOP()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int brt = n + 1;
+            int brTir = 2 * n - 3;
+
+            for (int row = 1; row <= 2 * n + 2; row++)
+            {
+                if (row == 1)
+                {
+                    Console.WriteLine("{0}__{1}__{0}", new string('.', brt), new string('_', brTir));
+                    brt--;
+                    brTir += 2;
+                }
+                if (row > 1 && row < n + 2)
+                {
+                    Console.WriteLine("{0}//{1}{2}{0}", new string('.', brt), new string('_', brTir), new string('\\', 2));
+                    brt--;
+                    brTir += 2;
+                }
+                if (row == n + 2)
+                {
+                    Console.WriteLine("{0}//{1}STOP!{1}{2}{0}", new string('.', brt), new string('_', (brTir - 5) / 2), new string('\\', 2));
+                }
+
+                if (row == n + 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("{0}{1}//", new string('\\', 2), new string('_', brTir));
+                }
+
+                if (row > n + 3 && row <= 2 * n + 2)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    brt++;
+                    brTir -= 2;
+                    Console.WriteLine("{0}{1}{2}//{0}", new string('.', brt), new string('\\', 2), new string('_', brTir));
+
+                }
+            }
+        }
+        /// <summary>
+        /// 21 Fevruari 2016 Zada4a 1
+        /// </summary>
+        static void Garfild()
+        {
+            decimal pariD = decimal.Parse(Console.ReadLine());
+            decimal kursNaD = decimal.Parse(Console.ReadLine());
+            decimal cenaPicaLV = decimal.Parse(Console.ReadLine());
+            decimal cenaLazanqLv = decimal.Parse(Console.ReadLine());
+            decimal cenaSandvi4iLv = decimal.Parse(Console.ReadLine());
+            decimal koli4estvoPica = decimal.Parse(Console.ReadLine());
+            decimal koli4estvoLazanq = decimal.Parse(Console.ReadLine());
+            decimal koli4estvoSandvi4i = decimal.Parse(Console.ReadLine());
+
+            decimal neobhodimiPari = cenaPicaLV / kursNaD * koli4estvoPica + cenaLazanqLv / kursNaD * koli4estvoLazanq + cenaSandvi4iLv / kursNaD * koli4estvoSandvi4i;
+            if (neobhodimiPari <= pariD)
+            {
+                Console.WriteLine("Garfield is well fed, John is awesome. Money left: ${0:f2}.", pariD - neobhodimiPari);
+            }
+            if (neobhodimiPari > pariD)
+            {
+                Console.WriteLine("Garfield is hungry. John is a badass. Money needed: ${0:f2}.", neobhodimiPari - pariD);
+            }
+        }
+        /// <summary>
+        /// 21 Fevruari 2016  Zada4a 2
+        /// </summary>
+        static void EncodedAnswers()
+        {
+            sbyte n = sbyte.Parse(Console.ReadLine());
+            int bra = 0;
+            int brb = 0;
+            int brc = 0;
+            int brd = 0;
+            string bukvi = "";
+            for (int i = 1; i <= n; i++)
+            {
+                long chislo = long.Parse(Console.ReadLine());
+                if (chislo % 4 == 0)
+                {
+                    bukvi += "a ";
+                    bra++;
+                }
+                if (chislo % 4 == 1)
+                {
+                    bukvi += "b ";
+                    brb++;
+                }
+                if (chislo % 4 == 2)
+                {
+                    bukvi += "c ";
+                    brc++;
+                }
+                if (chislo % 4 == 3)
+                {
+                    bukvi += "d ";
+                    brd++;
+                }
+
+            }
+            Console.WriteLine(bukvi);
+            Console.WriteLine("Answer A: {0}", bra);
+            Console.WriteLine("Answer B: {0}", brb);
+            Console.WriteLine("Answer C: {0}", brc);
+            Console.WriteLine("Answer D: {0}", brd);
+        }
+        /// <summary>
+        /// Vlojeni cikli Zada4a 12               !!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /// </summary>
+        static void TRYCATCH()
+        {
+            for (int i = 1; i <= int.MaxValue; i++)
+            {
+                string chislo = (Console.ReadLine());
+                try
+                {
+                    int chislo1 = int.Parse(chislo);
+
+                    if (chislo1 % 2 == 0)
+                    {
+                        Console.WriteLine("Even number entered: {0}", chislo);
+                        break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("catch");
+                }
+                finally
+                {
+                    Console.WriteLine("finally");
+                }
+                Console.WriteLine("Invalid number!");
+            }
+        }
+
+        /// <summary>
+        /// Vlojeni cikli Zada4a 11
+        /// </summary>
+        static void ProstoLiE4isloto()
+        {
+            int n = int.Parse(Console.ReadLine());
+            bool prosto = false;
+            if (n == 2)
+            {
+                prosto = true;
+            }
+            if (n == 3)
+            {
+                prosto = true;
+            }
+
+            for (int i = 2; i <= Math.Sqrt(n); i++)
+            {
+
+                if ((n % i == 0 || n < 2) && n != 2)
+                {
+                    prosto = false;
+                    break;
+                }
+                else if (n % i == 1)
+                {
+
+                    prosto = true;
+                }
+            }
+            if (prosto == false)
+            {
+                Console.WriteLine("Not Prime");
+            }
+            else
+            {
+                Console.WriteLine("Prime");
+            }
+        }
+        /// <summary>
+        /// Vlojeni cikli Zada4a 10
+        /// </summary>
+        static void SumiraneNaCifriNa4islo()
+        {
+            string n = Console.ReadLine();
+            int chislo = int.Parse(n);
+            int s = 0;
+            int suma = 0;
+            for (int i = 1; i <= n.Length; i++)
+            {
+
+                s = chislo % 10;
+                suma += s;
+                chislo = chislo / 10;
+            }
+            Console.WriteLine(suma);
+        }
+        /// <summary>
+        /// Vlojeni cikli Zada4a 8
+        /// </summary>
+        static void NaiGolqmOb6tDelitel()
+        {
+            int chislo1 = int.Parse(Console.ReadLine());
+            int chislo2 = int.Parse(Console.ReadLine());
+            int ostatuk = Math.Max(chislo1, chislo2) % Math.Min(chislo1, chislo2);
+
+            for (int i = ostatuk; i >= 0; i--)
+            {
+                if (chislo1 == chislo2)
+                {
+                    Console.WriteLine(chislo1);
+                    break;
+                }
+                chislo1 = chislo1 % chislo2;
+                if (chislo1 == 0)
+                {
+                    Console.WriteLine(chislo2);
+                    break;
+                }
+                chislo2 = chislo2 % chislo1;
+
+                if (chislo2 == 0)
+                {
+                    Console.WriteLine(chislo1);
+                    break;
+                }
+
+            }
+        }
+        /// <summary>
+        /// 3 Septemvri 2017  zada4a   6
+        /// </summary>
+        static void Moneti()
+        {
+            int brMonetiPo1 = int.Parse(Console.ReadLine());
+            int brM2 = int.Parse(Console.ReadLine());
+            int brM5 = int.Parse(Console.ReadLine());
+            int suma = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i <= brMonetiPo1; i++)
+            {
+                for (int k = 0; k <= brM2; k++)
+                {
+                    for (int l = 0; l <= brM5; l++)
+                    {
+                        if (i * 1 + k * 2 + l * 5 == suma)
+                        {
+                            Console.WriteLine("{0} * 1 lv. + {1} * 2 lv. + {2} * 5 lv. = {3} lv.", i, k, l, suma);
+                        }
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 3 Septemvri 2017  zada4a   4
+        /// </summary>
+        static void Torta()
+        {
+            int shirinaTorta = int.Parse(Console.ReadLine());
+            int duljinaTorta = int.Parse(Console.ReadLine());
+
+            int broiPar4eta = shirinaTorta * duljinaTorta;
+            int teku6tBrP = 0;
+            bool stop = false;
+            bool k = false;
+
+            for (int i = 1; i <= broiPar4eta; i++)
+            {
+                string brPar4eta = Console.ReadLine();
+
+                //int brParchetaT;
+
+                //bool stop = int.TryParse(Console.ReadLine(), out brParchetaT);
+
+                if (brPar4eta == "STOP")
+                {
+                    stop = true;
+                    break;
+                }
+
+                teku6tBrP += int.Parse(brPar4eta);
+                if (teku6tBrP > broiPar4eta)
+                {
+                    k = true;
+                    break;
+                }
+
+            }
+            if (stop == true)
+            {
+                Console.WriteLine($"{broiPar4eta - teku6tBrP} pieces are left.");
+            }
+            else if (k == true)
+            {
+                Console.WriteLine($"No more cake left! You need {teku6tBrP - broiPar4eta} pieces more.");
+            }
+        }
+        /// <summary>
+        /// 3 Septemvri 2017  zada4a   3
+        /// </summary>
+        private static void FotoSnimka()
+        {
+            int brSnimki = int.Parse(Console.ReadLine());
+            string razmer = Console.ReadLine();
+            string na4inNaPoru4ka = Console.ReadLine();
+
+            decimal cenaPoru4ka = 0;
+
+            if (razmer == "9X13")
+            {
+                cenaPoru4ka = (decimal)brSnimki * 0.16m;
+                if (brSnimki >= 50)
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.05m * cenaPoru4ka;
+
+                }
+
+                if (na4inNaPoru4ka == "online")
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.02m * cenaPoru4ka;
+                }
+            }
+            if (razmer == "10X15")
+            {
+                cenaPoru4ka = (decimal)brSnimki * 0.16m;
+                if (brSnimki >= 80)
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.03m * cenaPoru4ka;
+
+                }
+
+                if (na4inNaPoru4ka == "online")
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.02m * cenaPoru4ka;
+                }
+            }
+            if (razmer == "13X18")
+            {
+                cenaPoru4ka = (decimal)brSnimki * 0.38m;
+                if (brSnimki >= 50 && brSnimki <= 100)
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.03m * cenaPoru4ka;
+
+                }
+                if (brSnimki > 100)
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.05m * cenaPoru4ka;
+                }
+
+                if (na4inNaPoru4ka == "online")
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.02m * cenaPoru4ka;
+                }
+            }
+            if (razmer == "20X30")
+            {
+                cenaPoru4ka = (decimal)brSnimki * 2.90m;
+                if (brSnimki >= 10 && brSnimki <= 50)
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.07m * cenaPoru4ka;
+
+                }
+                if (brSnimki > 50)
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.09m * cenaPoru4ka;
+                }
+
+                if (na4inNaPoru4ka == "online")
+                {
+                    cenaPoru4ka = cenaPoru4ka - 0.02m * cenaPoru4ka;
+                }
+            }
+            Console.WriteLine("{0:f2}BGN", cenaPoru4ka);
+        }
+        /// <summary>
+        /// 3 Septemvri 2017  zada4a   2
+        /// </summary>
+        static void Stipendiq()
+        {
+
+
+            decimal dohodLV = decimal.Parse(Console.ReadLine());
+            decimal sredenUspeh = decimal.Parse(Console.ReadLine());
+            decimal minimalnazaplata = decimal.Parse(Console.ReadLine());
+
+            decimal razmerSocS = 35 / 100m * minimalnazaplata;
+            decimal stipendiqZaUspeh = sredenUspeh * 25m;
+
+            if (sredenUspeh >= 5.50m)
+            {
+                Console.WriteLine("You get a scholarship for excellent results {0} BGN", Math.Floor(stipendiqZaUspeh));
+            }
+            else if (sredenUspeh > 4.50m && dohodLV < minimalnazaplata)
+            {
+                Console.WriteLine("You get a Social scholarship {0} BGN", Math.Floor(razmerSocS));
+            }
+            else
+            {
+                Console.WriteLine("You cannot get a scholarship!");
+            }
+        }
+        /// <summary>
+        /// 3 Septemvri 2017  zada4a   1
+        /// </summary>
+        static void Shiva6kiCeh()
+        {
+            int broiMasi = int.Parse(Console.ReadLine());
+            decimal dujinaMasa = decimal.Parse(Console.ReadLine());
+            decimal shirinaMasa = decimal.Parse(Console.ReadLine());
+
+            decimal plo6tPokrivki = (decimal)broiMasi * (dujinaMasa + 2m * 0.30m) * (shirinaMasa + 2m * 0.30m);
+            decimal plo6tKareta = (decimal)broiMasi * (dujinaMasa / 2m) * (dujinaMasa / 2m);
+            decimal cenaDolari = (decimal)plo6tPokrivki * 7m + (decimal)plo6tKareta * 9m;
+            decimal cenaBgn = cenaDolari * 1.85m;
+
+            Console.WriteLine("{0:f2} USD", cenaDolari);
+            Console.WriteLine("{0:f2} BGN", cenaBgn);
+        }
+        /// <summary>
+        /// 03 Septemvri 2017  zada4a   5
+        /// </summary>
+        static void Snejinka()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int brt = 0;
+            int brtv = n;
+
+            for (int row = 1; row <= 2 * n + 1; row++)
+            {
+                if (row >= 1 && row < n)
+                {
+                    Console.WriteLine("{0}*{1}*{1}*{0}", new string('.', brt), new string('.', brtv));
+                    brt++;
+                    brtv--;
+                }
+                if (row == n)
+                {
+                    Console.WriteLine("{0}*{1}*{1}*{0}", new string('.', brt), new string('*', brtv));
+                }
+                if (row == n + 1)
+                {
+                    Console.WriteLine("{0}", new string('*', 2 * n + 3));
+                }
+                if (row == n + 2)
+                {
+                    Console.WriteLine("{0}*{1}*{1}*{0}", new string('.', brt), new string('*', brtv));
+                    brt--;
+                    brtv++;
+                }
+                if (row > n + 2)
+                {
+                    Console.WriteLine("{0}*{1}*{1}*{0}", new string('.', brt), new string('.', brtv));
+                    brt--;
+                    brtv++;
+                }
+            }
+        }
+        /// <summary>
+        /// Risuvane na figuri zad 11
+        /// </summary>
+        static void Diamand()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+
+            if (n % 2 == 1)
+            {
+                int tireta = (n - 1) / 2 - 1;
+                int vTir = n - 2 * tireta - 2;
+                int tiretaD = 1;
+                int vTirD = n - 4;
+                for (int row = 1; row <= n; row++)
+                {
+                    if (row == 1 || row == n)
+                    {
+                        Console.WriteLine("{0}*{0}", new string('-', (n - 1) / 2));
+                    }
+                    if (row > 1 && row <= (n + 1) / 2)
+                    {
+                        Console.WriteLine("{0}*{1}*{0}", new string('-', tireta), new string('-', vTir));
+                        tireta--;
+                        vTir += 2;
+                    }
+                    if (row > (n + 1) / 2 && row < n)
+                    {
+                        Console.WriteLine("{0}*{1}*{0}", new string('-', tiretaD), new string('-', vTirD));
+                        tiretaD++;
+                        vTirD -= 2;
+                    }
+                }
+            }
+            if (n % 2 == 0)
+            {
+                int tireta = (n - 1) / 2 - 1;
+                int vTir = n - 2 * tireta - 2;
+                int tiretaD = 1;
+                int vTirD = n - 4;
+                for (int row = 1; row <= n - 1; row++)
+                {
+                    if (row == 1 || row == n - 1)
+                    {
+                        Console.WriteLine("{0}**{0}", new string('-', (n - 1) / 2));
+                    }
+                    if (row > 1 && row <= n / 2)
+                    {
+                        Console.WriteLine("{0}*{1}*{0}", new string('-', tireta), new string('-', vTir));
+                        tireta--;
+                        vTir += 2;
+                    }
+                    if (row > (n) / 2 && row < n - 1)
+                    {
+                        Console.WriteLine("{0}*{1}*{0}", new string('-', tiretaD), new string('-', vTirD));
+                        tiretaD++;
+                        vTirD -= 2;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// risuvane na figuri zad 10
+        /// </summary>
+        static void Ku6ti4ka()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int broiZvezdi4ki = 0;
+            int brTireta = 0;
+            if (n % 2 == 0)
+            {
+                broiZvezdi4ki = 2;
+                brTireta = (n - broiZvezdi4ki) / 2;
+            }
+            if (n % 2 == 1)
+            {
+                broiZvezdi4ki = 1;
+                brTireta = (n - broiZvezdi4ki) / 2;
+            }
+            for (int row = 1; row <= n; row++)
+            {
+                if (row >= 1 && row <= (n + 1) / 2)
+                {
+                    Console.WriteLine("{0}{1}{0}", new string('-', brTireta), new string('*', broiZvezdi4ki));
+                    broiZvezdi4ki += 2;
+                    brTireta = (n - broiZvezdi4ki) / 2;
+                }
+
+                if (row > (n + 1) / 2)
+                {
+                    Console.WriteLine("|{0}|", new string('*', n - 2));
+                }
+            }
+        }
+        /// <summary>
+        /// Romb ot zvezdi4ki
+        /// </summary>
+        static void RisuvanePoKonzolata()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int brIntrvali = n;
+            int brzvezdi4ki = n - brIntrvali;
+            for (int row = 1; row <= n; row++)
+            {
+                Console.Write(new string(' ', n - row));
+                Console.Write('*');
+                for (int i = 1; i <= row - 1; i++)
+                {
+                    Console.Write(' ');
+                    Console.Write('*');
+                }
+                Console.WriteLine();
+            }
+            for (int row = n - 1; row >= 1; row--)
+            {
+                Console.Write(new string(' ', n - row));
+                Console.Write('*');
+                for (int i = 1; i <= row - 1; i++)
+                {
+                    Console.Write(' ');
+                    Console.Write('*');
+                }
+                Console.WriteLine();
+            }
+        }
+        /// <summary>
+        /// 23 Iuli 2017  Zada4a  6
+        /// </summary>
+        static void ImeNaGrupa()
+        {
+            char gBukva = char.Parse(Console.ReadLine());
+            char mB1 = char.Parse(Console.ReadLine());
+            char mB2 = char.Parse(Console.ReadLine());
+            char mB3 = char.Parse(Console.ReadLine());
+            int chislo = int.Parse(Console.ReadLine());
+
+            int broiKombinacii = -1;
+
+            for (char i = 'A'; i <= gBukva; i++)
+            {
+                for (char k = 'a'; k <= mB1; k++)
+                {
+                    for (char l = 'a'; l <= mB2; l++)
+                    {
+                        for (char m = 'a'; m <= mB3; m++)
+                        {
+                            for (int r = 0; r <= chislo; r++)
+                            {
+                                broiKombinacii++;
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(broiKombinacii);
+        }
+        /// <summary>
+        /// 23 Iuli 2017  Zada4a  4
+        /// </summary>
+        static void RazhodnaEnergiq()
+        {
+            int broitrenirovu4niDni = int.Parse(Console.ReadLine());
+            int broiTanciori = int.Parse(Console.ReadLine());
+
+            int energiq = 0;
+            int energiqOtVsi4ki = 0;
+
+            for (int i = 1; i <= broitrenirovu4niDni; i++)
+            {
+                int chasoveTrenirovka = int.Parse(Console.ReadLine());
+
+                if (i % 2 == 0 && chasoveTrenirovka % 2 == 0)
+                {
+                    energiq = 68 * broiTanciori;
+                    energiqOtVsi4ki += energiq;
+                }
+                if (i % 2 == 1 && chasoveTrenirovka % 2 == 0)
+                {
+                    energiq = 49 * broiTanciori;
+                    energiqOtVsi4ki += energiq;
+                }
+                if (i % 2 == 0 && chasoveTrenirovka % 2 == 1)
+                {
+                    energiq = 65 * broiTanciori;
+                    energiqOtVsi4ki += energiq;
+                }
+                if (i % 2 == 1 && chasoveTrenirovka % 2 == 1)
+                {
+                    energiq = 30 * broiTanciori;
+                    energiqOtVsi4ki += energiq;
+                }
+            }
+            int ob6taEnergiq = broiTanciori * broitrenirovu4niDni * 100;
+            int neizhabenaEnergiq = ob6taEnergiq - energiqOtVsi4ki;
+            decimal neizhabenaEnergiqOtTancNaDen = (decimal)neizhabenaEnergiq / broitrenirovu4niDni / broiTanciori;
+
+            if (energiqOtVsi4ki <= ob6taEnergiq / 2)
+            {
+                Console.WriteLine("They feel good! Energy left: {0:f2}", neizhabenaEnergiqOtTancNaDen);
+            }
+            if (energiqOtVsi4ki > ob6taEnergiq / 2)
+            {
+                Console.WriteLine("They are wasted! Energy left: {0:f2}", neizhabenaEnergiqOtTancNaDen);
+            }
+        }
+        /// <summary>
+        /// 23 Iuli 2017  Zada4a  2
+        /// </summary>
+        static void Horeografiq()
+        {
+            int broiStupki = int.Parse(Console.ReadLine());
+            int broiTanciori = int.Parse(Console.ReadLine());
+            int broiDni = int.Parse(Console.ReadLine());
+
+            decimal stupkiNaDen = Math.Ceiling(((decimal)broiStupki / (decimal)broiDni) * 100 / (decimal)broiStupki);
+            decimal procentStupkiZaVsekiTancior = stupkiNaDen / (decimal)broiTanciori;
+
+            if (stupkiNaDen <= 13)
+            {
+                Console.WriteLine("Yes, they will succeed in that goal! {0:f2}%.", procentStupkiZaVsekiTancior);
+            }
+            if (stupkiNaDen > 13)
+            {
+                Console.WriteLine("No, They will not succeed in that goal! Required {0:f2}% steps to be learned per day.", procentStupkiZaVsekiTancior);
+            }
+        }
+        /// <summary>
+        /// 23 Iuli 2017  Zada4a  1
+        /// </summary>
+        static void ZalaZaTanci()
+        {
+            double duljinaZalaM = double.Parse(Console.ReadLine());
+            double shirinaZalaM = double.Parse(Console.ReadLine());
+            double stranaGarderobM = double.Parse(Console.ReadLine());
+
+            double plo6tZalaSan = (duljinaZalaM * 100) * (shirinaZalaM * 100);
+            double plo6tGarderobSan = (stranaGarderobM * 100) * (stranaGarderobM * 100);
+            double plo6tPeikasan = plo6tZalaSan / 10;
+            double svobodnoProstranstvo = plo6tZalaSan - plo6tGarderobSan - plo6tPeikasan;
+            double broiTanciori = Math.Floor(svobodnoProstranstvo / (40 + 7000));
+            Console.WriteLine(broiTanciori);
+        }
+        /// <summary>
+        /// 25 Iuni 2017  Zada4a  6
+        /// </summary>
+        static void SborIliProizvedenie()
+        {
+            int n = int.Parse(Console.ReadLine());
+            bool ima = false;
+
+            for (int i = 1; i <= 30; i++)
+            {
+                for (int k = 1; k <= 30; k++)
+                {
+                    for (int l = 1; l <= 30; l++)
+                    {
+                        if (i < k && k < l)
+                        {
+
+                            if (i + k + l == n)
+                            {
+                                ima = true;
+                                Console.WriteLine("{0} + {1} + {2} = {3}", i, k, l, n);
+                            }
+                        }
+                        if (i > k && k > l)
+                        {
+
+                            if (i * k * l == n)
+                            {
+                                ima = true;
+                                Console.WriteLine("{0} * {1} * {2} = {3}", i, k, l, n);
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            if (ima == false)
+            {
+                Console.WriteLine("No!");
+            }
+        }
+        /// <summary>
+        /// 25 Iuni 2017  Zada4a  4
+        /// </summary>
+        static void Pari4naNagrada()
+        {
+            int broi4asti = int.Parse(Console.ReadLine());
+            decimal pariZaEdnaTo4ka = decimal.Parse(Console.ReadLine());
+
+            double ob6tBroiTo4ki = 0;
+
+            for (int i = 1; i <= broi4asti; i++)
+            {
+                int brTo4kiNaEdna4ast = int.Parse(Console.ReadLine());
+                if (i % 2 == 0)
+                {
+                    brTo4kiNaEdna4ast = brTo4kiNaEdna4ast * 2;
+                }
+                ob6tBroiTo4ki += brTo4kiNaEdna4ast;
+            }
+            decimal pariOb6to = (decimal)ob6tBroiTo4ki * pariZaEdnaTo4ka;
+            Console.WriteLine("The project prize was {0:f2} lv.", pariOb6to);
+        }
+        /// <summary>
+        /// 25 Iuni 2017  Zada4a  2
+        /// </summary>
+        static void SvetovenRekordPoPluvane()
+        {
+            double rekordSekundi = double.Parse(Console.ReadLine());
+            double razstoqnieMetri = double.Parse(Console.ReadLine());
+            double vremeVSekZa1Merur = double.Parse(Console.ReadLine());
+
+            double vremeZaPluvane = razstoqnieMetri * vremeVSekZa1Merur;
+            double zabavqne = Math.Floor((razstoqnieMetri / 15d)) * 12.5d;
+            double vremeNaIvan4o = vremeZaPluvane + zabavqne;
+
+            if (vremeNaIvan4o < rekordSekundi)
+            {
+                Console.WriteLine("Yes, he succeeded! The new world record is {0:f2} seconds.", vremeNaIvan4o);
+            }
+            if (vremeNaIvan4o >= rekordSekundi)
+            {
+                Console.WriteLine("No, he failed! He was {0:f2} seconds slower.", vremeNaIvan4o - rekordSekundi);
+            }
+        }
+        /// <summary>
+        /// 25 Iuni 2017  Zada4a  1
+        /// </summary>
+        static void BlagotvoritelnaKampaniq()
+        {
+            int broiDni = int.Parse(Console.ReadLine());
+            int broiSladkari = int.Parse(Console.ReadLine());
+            int broiTorti = int.Parse(Console.ReadLine());
+            int broiGofreti = int.Parse(Console.ReadLine());
+            int broiPala4inki = int.Parse(Console.ReadLine());
+
+            decimal pariTorti = (decimal)broiTorti * 45m;
+            decimal pariGofreti = (decimal)broiGofreti * 5.80m;
+            decimal pariPala4inki = (decimal)broiPala4inki * 3.20m;
+            decimal ob6taSuma = ((pariTorti + pariGofreti + pariPala4inki) * broiSladkari) * broiDni;
+            decimal crainaSuma = ob6taSuma - 1 / 8m * ob6taSuma;
+
+            Console.WriteLine("{0:f2}", crainaSuma);
+        }
+        /// <summary>
+        /// 7 Mai 2017   Zada4a   6
+        /// </summary>
+        static void GeneratorNa4isla()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int m = int.Parse(Console.ReadLine());
+            int l = int.Parse(Console.ReadLine());
+            int spacialno4islo = int.Parse(Console.ReadLine());
+            int kontrolno4islo = int.Parse(Console.ReadLine());
+
+            bool vqrno = false;
+            bool kontr = false;
+
+            for (int i = n; i >= 1 && !kontr; i--)
+            {
+                for (int k = m; k >= 1 && !kontr; k--)
+                {
+                    for (int r = l; r >= 1; r--)
+                    {
+                        vqrno = false;
+                        if (spacialno4islo >= kontrolno4islo)
+                        {
+                            Console.WriteLine("Yes! Control number was reached! Current special number is {0}.", spacialno4islo);
+                            kontr = true;
+                            break;
+                        }
+                        if ((i + k + r) % 3 == 0)
+                        {
+                            spacialno4islo += 5;
+                            vqrno = true;
+                        }
+                        if (r == 5 && vqrno != true)
+                        {
+                            spacialno4islo -= 2;
+                            vqrno = true;
+                        }
+                        if ((r % 2 == 0) && vqrno != true)
+                        {
+                            spacialno4islo = spacialno4islo * 2;
+                        }
+                    }
+                }
+            }
+            if (kontr != true)
+            {
+                Console.WriteLine("No! {0} is the last reached special number.", spacialno4islo);
+            }
+        }
+        /// <summary>
+        /// 7 Mai 2017   Zada4a   4
+        /// </summary>
+        static void FutbolenTurnir()
+        {
+            int kapacitetNaStadiona = int.Parse(Console.ReadLine());
+            int broiFenove = int.Parse(Console.ReadLine());
+
+
+            int sA = 0;
+            int sB = 0;
+            int sV = 0;
+            int sG = 0;
+
+
+            for (int i = 1; i <= broiFenove; i++)
+            {
+                char sektor = char.Parse(Console.ReadLine());
+                if (sektor == 'A')
+                {
+                    sA++;
+                }
+                if (sektor == 'B')
+                {
+                    sB++;
+                }
+                if (sektor == 'V')
+                {
+                    sV++;
+                }
+                if (sektor == 'G')
+                {
+                    sG++;
+                }
+            }
+            Console.WriteLine("{0:f2}%", (double)sA * 100d / (double)broiFenove);
+            Console.WriteLine("{0:f2}%", (double)sB * 100d / (double)broiFenove);
+            Console.WriteLine("{0:f2}%", (double)sV * 100d / (double)broiFenove);
+            Console.WriteLine("{0:f2}%", (double)sG * 100d / (double)broiFenove);
+            Console.WriteLine("{0:f2}%", (double)broiFenove * 100d / (double)kapacitetNaStadiona);
+        }
+        /// <summary>
+        /// 7 Mai 2017   Zada4a   2
+        /// </summary>
+        static void MagazinZadetskiigra4ki()
+        {
+            decimal cenaEkskurziq = decimal.Parse(Console.ReadLine());
+            int broiPuzeli = int.Parse(Console.ReadLine());
+            int broiKukli = int.Parse(Console.ReadLine());
+            int broiMe4eta = int.Parse(Console.ReadLine());
+            int broiMinioni = int.Parse(Console.ReadLine());
+            int broikamioni = int.Parse(Console.ReadLine());
+
+            int ob6tBroiIgra4ki = broiPuzeli + broiKukli + broiMe4eta + broiMinioni + broikamioni;
+            decimal ob6taCena = (decimal)broiPuzeli * 2.60m + (decimal)broiKukli * 3m + (decimal)broiMe4eta * 4.10m + (decimal)broiMinioni * 8.20m + (decimal)broikamioni * 2m;
+            decimal krainaCena = 0;
+
+            if (ob6tBroiIgra4ki >= 50)
+            {
+                ob6taCena = ob6taCena - 0.25m * ob6taCena;
+                krainaCena = ob6taCena - 0.10m * ob6taCena;
+            }
+            else
+            {
+                krainaCena = ob6taCena - 0.10m * ob6taCena;
+            }
+            if (krainaCena >= cenaEkskurziq)
+            {
+                Console.WriteLine("Yes! {0:f2} lv left.", krainaCena - cenaEkskurziq);
+            }
+            else
+            {
+                Console.WriteLine("Not enough money! {0:f2} lv needed.", cenaEkskurziq - krainaCena);
+            }
+        }
+        /// <summary>
+        /// 7 Mai 2017   Zada4a   1
+        /// </summary>
+        static void AlkoholnaBorsa()
+        {
+            decimal cenaUiski = decimal.Parse(Console.ReadLine());
+            double litriBira = double.Parse(Console.ReadLine());
+            double litriVino = double.Parse(Console.ReadLine());
+            double litriRakiq = double.Parse(Console.ReadLine());
+            double litriUiski = double.Parse(Console.ReadLine());
+
+            decimal cenaRakiq = (decimal)cenaUiski / 2m;
+            decimal cenaVino = cenaRakiq - 0.4m * cenaRakiq;
+            decimal cenaBira = cenaRakiq - 0.8m * cenaRakiq;
+
+            decimal cenaOb6to = (decimal)litriUiski * cenaUiski + (decimal)litriRakiq * cenaRakiq + (decimal)litriVino * cenaVino + (decimal)litriBira * cenaBira;
+            Console.WriteLine("{0:f2}", cenaOb6to);
+        }
+        /// <summary>
+        /// 19 March 2017 Ve4er Zada4a  6
+        /// </summary>
+        static void Kontrolno4islo()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int m = int.Parse(Console.ReadLine());
+            int kontrolno4islo = int.Parse(Console.ReadLine());
+
+            int suma = 0;
+            int ob6taSuma = 0;
+            int brKombinacii = 0;
+            bool ravni = false;
+
+            for (int i = 1; i <= n; i++)
+            {
+                for (int k = m; k >= 1; k--)
+                {
+                    brKombinacii++;
+                    suma = i * 2 + k * 3;
+                    ob6taSuma += suma;
+                    if (ob6taSuma >= kontrolno4islo)
+                    {
+                        Console.WriteLine("{0} moves", brKombinacii);
+                        Console.WriteLine("Score: {0} >= {1}", ob6taSuma, kontrolno4islo);
+                        ravni = true;
+                        break;
+                    }
+                }
+                if (ravni == true)
+                {
+                    break;
+                }
+            }
+            if (ravni != true)
+            {
+                Console.WriteLine("{0} moves", brKombinacii);
+            }
+        }
+        /// <summary>
+        /// 19 March 2017 Ve4er Zada4a  4
+        /// </summary>
+        static void Mese4niRazhodi()
+        {
+            int broiMeseci = int.Parse(Console.ReadLine());
+
+            decimal tokOb6to = 0;
+            decimal vodaOb6to = 0;
+            decimal internetOb6to = 0;
+            decimal drugiob6to = 0;
+
+            for (int i = 1; i <= broiMeseci; i++)
+            {
+                decimal cenaTok = decimal.Parse(Console.ReadLine());
+
+                tokOb6to += cenaTok;
+                vodaOb6to += 20;
+                internetOb6to += 15;
+                drugiob6to += (cenaTok + 20 + 15) + 0.2m * (cenaTok + 20 + 15);
+            }
+            Console.WriteLine("Electricity: {0:f2} lv", tokOb6to);
+            Console.WriteLine("Water: {0:f2} lv", vodaOb6to);
+            Console.WriteLine("Internet: {0:f2} lv", internetOb6to);
+            Console.WriteLine("Other: {0:f2} lv", drugiob6to);
+            Console.WriteLine("Average: {0:f2} lv", (tokOb6to + vodaOb6to + internetOb6to + drugiob6to) / broiMeseci);
+        }
+        /// <summary>
+        /// 19 March 2017 Ve4er Zada4a  2
+        /// </summary>
+        static void Stiropor()
+        {
+            decimal biudjet = decimal.Parse(Console.ReadLine());
+            double plo6tKu6ta = double.Parse(Console.ReadLine());
+            int broiProzorci = int.Parse(Console.ReadLine());
+            double kvMstiroporVPaket = double.Parse(Console.ReadLine());
+            decimal cenaPaketStiropor = decimal.Parse(Console.ReadLine());
+
+            double plo6tKu6taBezProzorci = plo6tKu6ta - (double)broiProzorci * 2.4d;
+            double kvMStiropor = plo6tKu6taBezProzorci + 0.1d * plo6tKu6taBezProzorci;
+            double nujniPaketi = Math.Ceiling(kvMStiropor / kvMstiroporVPaket);
+            decimal cenaPaketi = (decimal)nujniPaketi * cenaPaketStiropor;
+
+            if (cenaPaketi <= biudjet)
+            {
+                Console.WriteLine("Spent: {0:f2}", cenaPaketi);
+                Console.WriteLine("Left: {0:f2}", biudjet - cenaPaketi);
+            }
+            else
+            {
+                Console.WriteLine("Need more: {0:f2}", cenaPaketi - biudjet);
+            }
+        }
+        /// <summary>
+        /// 19 March 2017 Ve4er Zada4a  1
+        /// </summary>
+        static void GrozdeIRakiq()
+        {
+            double plo6tGrozde = double.Parse(Console.ReadLine());
+            double kgGrozdeNaKvm = double.Parse(Console.ReadLine());
+            double brak = double.Parse(Console.ReadLine());
+
+            double ob6toKgGrozde = plo6tGrozde * kgGrozdeNaKvm - brak;
+            double litraRakiq = (0.45 * ob6toKgGrozde) / 7.5;
+            decimal prihodRakiq = (decimal)litraRakiq * 9.8m;
+
+            decimal prihodGrozde = 0.55m * (decimal)ob6toKgGrozde * 1.5m;
+
+            Console.WriteLine("{0:f2}", prihodRakiq);
+            Console.WriteLine("{0:f2}", prihodGrozde);
+        }
+        /// <summary>
+        /// 19 March 2017 - Morning Zada4a  6
+        /// </summary>
+        static void TwoNumbersSum()
+        {
+            int purvo4islo = int.Parse(Console.ReadLine());
+            int vtoro4islo = int.Parse(Console.ReadLine());
+            int magi4asko4islo = int.Parse(Console.ReadLine());
+
+            int broiKombinacii = 0;
+            int magi4eskakombinaciq = 0;
+            bool ima = false;
+
+            for (int i = purvo4islo; i >= vtoro4islo && !ima; i--)
+            {
+                for (int k = purvo4islo; k >= vtoro4islo && !ima; k--)
+                {
+                    broiKombinacii++;
+                    if (i + k == magi4asko4islo)
+                    {
+                        magi4eskakombinaciq = broiKombinacii;
+                        Console.WriteLine("Combination N:{0} ({1} + {2} = {3})", magi4eskakombinaciq, i, k, i + k);
+                        ima = true;
+                    }
+                }
+            }
+
+            if (!ima)
+            {
+                Console.WriteLine("{0} combinations - neither equals {1}", broiKombinacii, magi4asko4islo);
+            }
+        }
+        /// <summary>
+        /// 19 March 2017 - Morning Zada4a  4
+        /// </summary>
+        static void LektorskiZaplati()
+        {
+            int broiLekcii = int.Parse(Console.ReadLine());
+            decimal biudjet = decimal.Parse(Console.ReadLine());
+
+            int roYal = 0;
+            int jelev = 0;
+            int roli = 0;
+            int trofon = 0;
+            int sino = 0;
+            int other = 0;
+
+            decimal zaplataNa4ovek = biudjet / (decimal)broiLekcii;
+
+            for (int i = 1; i <= broiLekcii; i++)
+            {
+                string imeLektor = Console.ReadLine();
+
+                if (imeLektor == "Jelev")
+                {
+                    jelev++;
+                }
+                if (imeLektor == "RoYaL")
+                {
+                    roYal++;
+                }
+                if (imeLektor == "Roli")
+                {
+                    roli++;
+                }
+                if (imeLektor == "Trofon")
+                {
+                    trofon++;
+                }
+                if (imeLektor == "Sino")
+                {
+                    sino++;
+                }
+                if (imeLektor != "Sino" && imeLektor != "Trofon" && imeLektor != "Roli" && imeLektor != "RoYaL" && imeLektor != "Jelev")
+                {
+                    other++;
+                }
+            }
+            Console.WriteLine("Jelev salary: {0:f2} lv", (decimal)jelev * zaplataNa4ovek);
+            Console.WriteLine("RoYaL salary: {0:f2} lv", (decimal)roYal * zaplataNa4ovek);
+            Console.WriteLine("Roli salary: {0:f2} lv", (decimal)roli * zaplataNa4ovek);
+            Console.WriteLine("Trofon salary: {0:f2} lv", (decimal)trofon * zaplataNa4ovek);
+            Console.WriteLine("Sino salary: {0:f2} lv", (decimal)sino * zaplataNa4ovek);
+            Console.WriteLine("Others salary: {0:f2} lv", (decimal)other * zaplataNa4ovek);
+        }
+        /// <summary>
+        /// 19 March 2017 - Morning Zada4a  2
+        /// </summary>
+        static void Cha6i()
+        {
+            int planuvanBroi4a6i = int.Parse(Console.ReadLine());
+            int broiRabotnici = int.Parse(Console.ReadLine());
+            int broiRabotniDni = int.Parse(Console.ReadLine());
+
+            int izraboteni4asove = broiRabotnici * broiRabotniDni * 8;
+            double Izraboteni4a6i = Math.Floor((double)izraboteni4asove / 5d);
+
+            if (Izraboteni4a6i < planuvanBroi4a6i)
+            {
+
+                Console.WriteLine("Losses: {0:f2}", (planuvanBroi4a6i - Izraboteni4a6i) * 4.2);
+            }
+            if (Izraboteni4a6i >= planuvanBroi4a6i)
+            {
+
+                Console.WriteLine("{0:f2} extra money", (Izraboteni4a6i - planuvanBroi4a6i) * 4.2);
+            }
+        }
+        /// <summary>
+        /// 19 March 2017 - Morning Zada4a  1
+        /// </summary>
+        static void BoqdisvaneNaKu6ta()
+        {
+            double x = double.Parse(Console.ReadLine());
+            double y = double.Parse(Console.ReadLine());
+            double h = double.Parse(Console.ReadLine());
+
+            double strani4niSteni = 2 * (x * y - 1.5 * 1.5);
+            double prednaiZadnaSteni = 2 * x * x - 2 * 1.2;
+            double osnova = strani4niSteni + prednaiZadnaSteni;
+
+            double pokriv = 2 * (x * y) + 2 * (x * h / 2);
+
+            double litriZelenaBoq = osnova / 3.4;
+            double Litri4ervenaBoq = pokriv / 4.3;
+
+            Console.WriteLine("{0:f2}", litriZelenaBoq);
+            Console.WriteLine("{0:f2}", Litri4ervenaBoq);
+        }
+        /// <summary>
+        /// 18 Mart2017   Zada4a  6
+        /// </summary>
+        static void SumaOtDve4isla()
+        {
+            int purvo4islo = int.Parse(Console.ReadLine());
+            int vtoro4islo = int.Parse(Console.ReadLine());
+            int magi4esko4islo = int.Parse(Console.ReadLine());
+
+            int nomerCombinaciq = 0;
+            int nomerNaMagKombinaciq = 0;
+            bool vqrno = false;
+
+            for (int i = purvo4islo; i <= vtoro4islo; i++)
+            {
+                for (int k = purvo4islo; k <= vtoro4islo; k++)
+                {
+                    nomerCombinaciq++;
+                    if (i + k == magi4esko4islo)
+                    {
+                        nomerNaMagKombinaciq = nomerCombinaciq;
+                        Console.WriteLine("Combination N:{0} ({1} + {2} = {3})", nomerNaMagKombinaciq, i, k, magi4esko4islo);
+                        vqrno = true;
+                        break;
+                    }
+                    if (vqrno == true)
+                    {
+                        break;
+                    }
+                }
+                if (vqrno == true)
+                {
+                    break;
+                }
+            }
+            if (vqrno != true)
+            {
+                Console.WriteLine("{0} combinations - neither equals {1}", nomerCombinaciq, magi4esko4islo);
+            }
+
+        }
+        /// <summary>
+        /// 18 Mart2017   Zada4a  4
+        /// </summary>
+        static void IgraNaIntervali()
+        {
+            int broiHodove = int.Parse(Console.ReadLine());
+            double broiTo4ki = 0;
+            double kraenRezultat = 0;
+            double ot0do9 = 0;
+            double ot10do19 = 0;
+            double ot20do29 = 0;
+            double ot30do39 = 0;
+            double ot40do49 = 0;
+            double neValidno = 0;
+
+
+            for (int i = 1; i <= broiHodove; i++)
+            {
+                double chislo = double.Parse(Console.ReadLine());
+
+                if (chislo < 0 || chislo > 50)
+                {
+                    neValidno++;
+                    kraenRezultat = kraenRezultat / 2;
+                    broiTo4ki = 0;
+                }
+                if (chislo >= 0 && chislo < 10)
+                {
+                    ot0do9++;
+                    broiTo4ki = 0.2d * chislo;
+                }
+                if (chislo >= 10 && chislo < 20)
+                {
+                    ot10do19++;
+                    broiTo4ki = 0.3 * chislo;
+                }
+                if (chislo >= 20 && chislo < 30)
+                {
+                    ot20do29++;
+                    broiTo4ki = 0.4 * chislo;
+                }
+                if (chislo >= 30 && chislo < 40)
+                {
+                    ot30do39++;
+                    broiTo4ki = 50;
+                }
+                if (chislo >= 40 && chislo <= 50)
+                {
+                    ot40do49++;
+                    broiTo4ki = 100;
+                }
+                kraenRezultat += broiTo4ki;
+            }
+            Console.WriteLine("{0:f2}", (double)kraenRezultat);
+            Console.WriteLine("From 0 to 9: {0:f2}%", ot0do9 * 100 / broiHodove);
+            Console.WriteLine("From 10 to 19: {0:f2}%", ot10do19 * 100 / broiHodove);
+            Console.WriteLine("From 20 to 29: {0:f2}%", ot20do29 * 100 / broiHodove);
+            Console.WriteLine("From 30 to 39: {0:f2}%", ot30do39 * 100 / broiHodove);
+            Console.WriteLine("From 40 to 50: {0:f2}%", ot40do49 * 100 / broiHodove);
+            Console.WriteLine("Invalid numbers: {0:f2}%", neValidno * 100 / broiHodove);
+        }
+        /// <summary>
+        /// 18 Mart2017   Zada4a  2
+        /// </summary>
+        static void Rabotni4asove()
+        {
+            int neobhodimi4asove = int.Parse(Console.ReadLine());
+            int broiRabotnici = int.Parse(Console.ReadLine());
+            int rabotniDni = int.Parse(Console.ReadLine());
+
+            int rabotni4asove = broiRabotnici * rabotniDni * 8;
+            if (rabotni4asove > neobhodimi4asove)
+            {
+                Console.WriteLine("{0} hours left", rabotni4asove - neobhodimi4asove);
+            }
+            if (neobhodimi4asove > rabotni4asove)
+            {
+                Console.WriteLine("{0} overtime", neobhodimi4asove - rabotni4asove);
+                Console.WriteLine("Penalties: {0}", (neobhodimi4asove - rabotni4asove) * rabotniDni);
+            }
+        }
+        /// <summary>
+        /// 18 Mart2017   Zada4a  1
+        /// </summary>
+        static void Ku6ti4kaZaKu4e()
+        {
+            double duljinaNaStranicata = double.Parse(Console.ReadLine());
+            double viso4inaKu6ta = double.Parse(Console.ReadLine());
+
+            double plo6tNaStranici = 2 * (duljinaNaStranicata * duljinaNaStranicata / 2);
+            double plo6tZadnastena = duljinaNaStranicata / 2 * duljinaNaStranicata / 2 + ((duljinaNaStranicata / 2 * (viso4inaKu6ta - duljinaNaStranicata / 2)) / 2);
+            double plo6tPrednaStena = plo6tZadnastena - duljinaNaStranicata / 5 * duljinaNaStranicata / 5;
+            double plo6tOsnova = plo6tNaStranici + plo6tZadnastena + plo6tPrednaStena;
+
+            double plo6tPokriv = 2 * (duljinaNaStranicata * duljinaNaStranicata / 2);
+            double boqzaPokriv = plo6tPokriv / 5;
+            double boqOsnova = plo6tOsnova / 3;
+            Console.WriteLine("{0:f2}", boqOsnova);
+            Console.WriteLine("{0:f2}", boqzaPokriv);
+        }
+        /// <summary>
+        /// 18 Dekemvri 2016  Zada4a   6
+        /// </summary>
+        static void KombinaciiOtBukvi()
+        {
+            char purvaBukva = char.Parse(Console.ReadLine());
+            char vtoraBukva = char.Parse(Console.ReadLine());
+            char prezko4iBukva = char.Parse(Console.ReadLine());
+
+            int broiKombinacii = 0;
+
+            for (char i = purvaBukva; i <= vtoraBukva; i++)
+            {
+                if (i == prezko4iBukva)
+                {
+                    continue;
+                }
+                for (char k = purvaBukva; k <= vtoraBukva; k++)
+                {
+                    if (k == prezko4iBukva)
+                    {
+                        continue;
+                    }
+                    for (char l = purvaBukva; l <= vtoraBukva; l++)
+                    {
+                        if (l == prezko4iBukva)
+                        {
+                            continue;
+                        }
+                        broiKombinacii++;
+                        Console.Write("{0}{1}{2} ", i, k, l);
+                    }
+                }
+            }
+            Console.WriteLine(broiKombinacii);
+        }
+        /// <summary>
+        /// 18 Dekemvri 2016  Zada4a   4
+        /// </summary>
+        static void Ocenki()
+        {
+            int broiStudenti = int.Parse(Console.ReadLine());
+
+            double ndOcenka = 0;
+            int bro2 = 0;
+            int bro3i4 = 0;
+            int bro4i5 = 0;
+            int bro5i6 = 0;
+
+            for (int i = 1; i <= broiStudenti; i++)
+            {
+                double ocenka = double.Parse(Console.ReadLine());
+
+                if (ocenka < 3)
+                {
+                    bro2++;
+                }
+                if (ocenka >= 3 && ocenka < 4)
+                {
+                    bro3i4++;
+                }
+                if (ocenka >= 4 && ocenka < 5)
+                {
+                    bro4i5++;
+                }
+                if (ocenka >= 5)
+                {
+                    bro5i6++;
+                }
+                ndOcenka += ocenka;
+            }
+            Console.WriteLine("Top students: {0:f2}%", bro5i6 * 100d / broiStudenti);
+            Console.WriteLine("Between 4.00 and 4.99: {0:f2}%", bro4i5 * 100d / broiStudenti);
+            Console.WriteLine("Between 3.00 and 3.99: {0:f2}%", bro3i4 * 100d / broiStudenti);
+            Console.WriteLine("Fail: {0:f2}%", bro2 * 100d / broiStudenti);
+            Console.WriteLine("Average: {0:f2}", ndOcenka / (double)broiStudenti);
+
+        }
+        /// <summary>
+        /// 18 Dekemvri 2016  Zada4a   2
+        /// </summary>
+        static void SmqnaNaPlo4ki()
+        {
+            decimal subraniPari = decimal.Parse(Console.ReadLine());
+            double shirinaPod = double.Parse(Console.ReadLine());
+            double duljinaPod = double.Parse(Console.ReadLine());
+            double stranaTriugulnik = double.Parse(Console.ReadLine());
+            double viso4inaTriugulnik = double.Parse(Console.ReadLine());
+            decimal cenaPlo4ka = decimal.Parse(Console.ReadLine());
+            decimal cenaZaMaistor = decimal.Parse(Console.ReadLine());
+
+            double plo6tNaPoda = shirinaPod * duljinaPod;
+            double plo6tPlo4ka = stranaTriugulnik * viso4inaTriugulnik / 2d;
+            double neubhodimBroiPlo4ki = Math.Ceiling(plo6tNaPoda / plo6tPlo4ka + 5d);
+            decimal ob6taSuma = (decimal)neubhodimBroiPlo4ki * cenaPlo4ka + cenaZaMaistor;
+
+            if (ob6taSuma <= subraniPari)
+            {
+                Console.WriteLine("{0:f2} lv left.", subraniPari - ob6taSuma);
+            }
+            if (subraniPari < ob6taSuma)
+            {
+                Console.WriteLine("You'll need {0:f2} lv more.", ob6taSuma - subraniPari);
+            }
+        }
+        /// <summary>
+        /// 18 Dekemvri 2016  Zada4a   1
+        /// </summary>
+        static void Razstoqnie()
+        {
+            int purvona4alnaSkorost = int.Parse(Console.ReadLine());
+            int purvoVremeVMinuti = int.Parse(Console.ReadLine());
+            int vtoroVremeVMinuti = int.Parse(Console.ReadLine());
+            int tretoVremeVMinuti = int.Parse(Console.ReadLine());
+
+            double vtoraSkorost = (double)purvona4alnaSkorost + 0.1d * (double)purvona4alnaSkorost;
+            double tretaSkorost = vtoraSkorost - 0.05d * vtoraSkorost;
+
+            double purvoVreme4asove = (double)purvoVremeVMinuti / 60;
+            double vtoroVreme4asove = (double)vtoroVremeVMinuti / 60;
+            double tretoVreme4asove = (double)tretoVremeVMinuti / 60;
+
+            double razstoqnie = purvoVreme4asove * purvona4alnaSkorost + vtoroVreme4asove * vtoraSkorost + tretoVreme4asove * tretaSkorost;
+            Console.WriteLine("{0:f2}", razstoqnie);
+        }
+        /// <summary>
+        /// 20 Noemvri 2016 - Evening  Zada4a   6
+        /// </summary>
+        static void MksimalenBroiKombinacii()
+        {
+            int purvoChislo = int.Parse(Console.ReadLine());
+            int vtoroChislo = int.Parse(Console.ReadLine());
+            int broiKombinacii = int.Parse(Console.ReadLine());
+
+            int kombinacii = 0;
+
+            for (int i = purvoChislo; i <= vtoroChislo; i++)
+            {
+                for (int k = purvoChislo; k <= vtoroChislo; k++)
+                {
+                    Console.Write("<{0}-{1}>", i, k);
+                    kombinacii++;
+                    if (kombinacii == broiKombinacii)
+                    {
+                        break;
+                    }
+                }
+                if (kombinacii == broiKombinacii)
+                {
+                    break;
+                }
+            }
+        }
+        /// <summary>
+        /// 20 Noemvri 2016 - Evening  Zada4a   4
+        /// </summary>
+        static void Logistika()
+        {
+            int broitovari = int.Parse(Console.ReadLine());
+
+            decimal broiTonove = 0;
+            decimal cenaZaPrevoz = 0;
+            decimal cenaMikrobus = 0;
+            decimal cenaKamion = 0;
+            decimal cenaVlak = 0;
+            decimal tonavKamion = 0;
+            decimal tonaMikrobus = 0;
+            decimal tonaVlak = 0;
+
+            for (int i = 1; i <= broitovari; i++)
+            {
+                int tonajNaTovar = int.Parse(Console.ReadLine());
+
+                if (tonajNaTovar <= 3)
+                {
+                    cenaZaPrevoz = tonajNaTovar * 200;
+                    cenaMikrobus += cenaZaPrevoz;
+                    tonaMikrobus += tonajNaTovar;
+                }
+                if (tonajNaTovar >= 4 && tonajNaTovar <= 11)
+                {
+                    cenaZaPrevoz = tonajNaTovar * 175;
+                    cenaKamion += cenaZaPrevoz;
+                    tonavKamion += tonajNaTovar;
+                }
+                if (tonajNaTovar >= 12)
+                {
+                    cenaZaPrevoz = tonajNaTovar * 120;
+                    cenaVlak += cenaZaPrevoz;
+                    tonaVlak += tonajNaTovar;
+                }
+                broiTonove += tonajNaTovar;
+            }
+            decimal ob6toCena = cenaMikrobus + cenaKamion + cenaVlak;
+            Console.WriteLine("{0:f2}", ob6toCena / broiTonove);
+            Console.WriteLine("{0:f2}%", tonaMikrobus * 100 / broiTonove);
+            Console.WriteLine("{0:f2}%", tonavKamion * 100 / broiTonove);
+            Console.WriteLine("{0:f2}%", tonaVlak * 100 / broiTonove);
+        }
+        /// <summary>
+        /// 20 Noemvri 2016 - Evening  Zada4a   2
+        /// </summary>
+        static void MagazinZaCvetq()
+        {
+            int broiMagnolii = int.Parse(Console.ReadLine());
+            int broiZiumbiuli = int.Parse(Console.ReadLine());
+            int broiRozi = int.Parse(Console.ReadLine());
+            int broiKaktusi = int.Parse(Console.ReadLine());
+            decimal cenaNaPodaruk = decimal.Parse(Console.ReadLine());
+
+            decimal ob6taSuma = (broiMagnolii * 3.25m + broiZiumbiuli * 4m + broiRozi * 3.50m + broiKaktusi * 8m);
+            decimal krainaSuma = (ob6taSuma - 0.05m * ob6taSuma);
+            if (krainaSuma >= cenaNaPodaruk)
+            {
+                Console.WriteLine("She is left with {0} leva.", Math.Floor(krainaSuma - cenaNaPodaruk));
+            }
+            if (krainaSuma < cenaNaPodaruk)
+            {
+                Console.WriteLine("She will have to borrow {0} leva.", Math.Ceiling(cenaNaPodaruk - krainaSuma));
+            }
+        }
+        /// <summary>
+        /// 20 Noemvri 2016 - Evening  Zada4a   1
+        /// </summary>
+        static void CenaNaJili6te()
+        {
+            double naiMalkaStaq = double.Parse(Console.ReadLine());
+            double plo6tKuhnq = double.Parse(Console.ReadLine());
+            decimal cenaNaKvM = decimal.Parse(Console.ReadLine());
+
+            double banq = naiMalkaStaq / 2;
+            double vtoraStaq = naiMalkaStaq + 0.1 * naiMalkaStaq;
+            double tretaStaq = vtoraStaq + 0.1 * vtoraStaq;
+            double ob6taPlo6t = plo6tKuhnq + banq + naiMalkaStaq + vtoraStaq + tretaStaq;
+            double sKoridor = ob6taPlo6t + 0.05 * ob6taPlo6t;
+            decimal cenaVsi4ko = (decimal)sKoridor * cenaNaKvM;
+            Console.WriteLine("{0:f2}", cenaVsi4ko);
+        }
+        /// <summary>
+        /// 20 Noemvri2016 Morning Zada4a   6
+        /// </summary>
+        static void Bitki()
+        {
+            int broiPokemoni1 = int.Parse(Console.ReadLine());
+            int broiPokemoni2 = int.Parse(Console.ReadLine());
+            int maksimalenBroiBitki = int.Parse(Console.ReadLine());
+
+            int broiBitki = 0;
+
+            for (int i = 1; i <= broiPokemoni1; i++)
+            {
+                for (int k = 1; k <= broiPokemoni2; k++)
+                {
+
+                    broiBitki++;
+                    if (broiBitki > maksimalenBroiBitki)
+                    {
+                        break;
+                    }
+                    Console.Write("({0} <-> {1}) ", i, k);
+                }
+            }
+        }
+        /// <summary>
+        /// 20 Noemvri2016 Morning Zada4a   4
+        /// </summary>
+        static void SoftUniKemp()
+        {
+            int broiGrupi = int.Parse(Console.ReadLine());
+            int kola = 0;
+            int mikrobus = 0;
+            int malukAvtobus = 0;
+            int golqmAvtobus = 0;
+            int vlak = 0;
+            int broiStudenti = 0;
+            for (int i = 1; i <= broiGrupi; i++)
+            {
+                int broiHoravGrupa = int.Parse(Console.ReadLine());
+
+                broiStudenti += broiHoravGrupa;
+                if (broiHoravGrupa <= 5)
+                {
+                    kola += broiHoravGrupa;
+                }
+                if (broiHoravGrupa >= 6 && broiHoravGrupa <= 12)
+                {
+                    mikrobus += broiHoravGrupa;
+                }
+                if (broiHoravGrupa >= 13 && broiHoravGrupa <= 25)
+                {
+                    malukAvtobus += broiHoravGrupa;
+                }
+                if (broiHoravGrupa >= 26 && broiHoravGrupa <= 40)
+                {
+                    golqmAvtobus += broiHoravGrupa;
+                }
+                if (broiHoravGrupa >= 41)
+                {
+                    vlak += broiHoravGrupa;
+                }
+            }
+            Console.WriteLine("{0:f2}%", (double)kola * 100d / broiStudenti);
+            Console.WriteLine("{0:f2}%", (double)mikrobus * 100d / broiStudenti);
+            Console.WriteLine("{0:f2}%", (double)malukAvtobus * 100d / broiStudenti);
+            Console.WriteLine("{0:f2}%", (double)golqmAvtobus * 100d / broiStudenti);
+            Console.WriteLine("{0:f2}%", (double)vlak * 100d / broiStudenti);
+        }
+        /// <summary>
+        /// 20 Noemvri2016 Morning Zada4a   2
+        /// </summary>
+        static void Doma6niLiubimci()
+        {
+            int broiDni = int.Parse(Console.ReadLine());
+            int hranaVKg = int.Parse(Console.ReadLine());
+            double hranaKu4eKG = double.Parse(Console.ReadLine());
+            double hranaKotkaKG = double.Parse(Console.ReadLine());
+            double hranaKOstenurkaGR = double.Parse(Console.ReadLine());
+
+            double hranaKostenurkaKG = hranaKOstenurkaGR / 1000;
+            double ostavenaHrana = Math.Ceiling(broiDni * (hranaKu4eKG + hranaKotkaKG + hranaKostenurkaKG));
+            if (ostavenaHrana <= hranaVKg)
+            {
+                Console.WriteLine("{0} kilos of food left.", Math.Ceiling(hranaVKg - ostavenaHrana));
+            }
+            if (ostavenaHrana > hranaVKg)
+            {
+                Console.WriteLine("{0} more kilos of food are needed.", Math.Ceiling(ostavenaHrana - hranaVKg));
+            }
+        }
+        /// <summary>
+        /// 20 Noemvri2016 Morning Zada4a   1
+        /// </summary>
+        static void RibnaBorsa()
+        {
+            decimal skumriq = decimal.Parse(Console.ReadLine());
+            decimal caca = decimal.Parse(Console.ReadLine());
+            decimal kgPalamud = decimal.Parse(Console.ReadLine());
+            decimal kgSafrid = decimal.Parse(Console.ReadLine());
+            decimal kgMidi = decimal.Parse(Console.ReadLine());
+
+            decimal cenaPalamud = skumriq + 0.6m * skumriq;
+            decimal cenaSafrid = caca + 0.8m * caca;
+            decimal cenaMidi = 7.5m;
+
+            Console.WriteLine("{0:f2}", kgPalamud * cenaPalamud + kgSafrid * cenaSafrid + kgMidi * cenaMidi);
+        }
+        /// <summary>
+        /// 28 Avgust 2016  Zada4a   6
+        /// </summary>
+        static void Cifri()
+        {
+            int chislo = int.Parse(Console.ReadLine());
+            int redove = chislo / 100 + (chislo / 10 % 10);
+            int koloni = chislo / 100 + chislo % 10;
+
+            int delenoNa5 = chislo / 100;
+            int delenoNa3 = chislo / 10 % 10;
+            int ina4e = chislo % 10;
+
+            for (int row = 1; row <= redove; row++)
+            {
+                for (int col = 1; col <= koloni; col++)
+                {
+                    if (chislo % 5 == 0)
+                    {
+                        chislo = chislo - delenoNa5;
+
+                    }
+                    else if (chislo % 3 == 0)
+                    {
+                        chislo = chislo - delenoNa3;
+
+                    }
+                    else
+                    {
+                        chislo = chislo + ina4e;
+
+                    }
+                    Console.Write("{0} ", chislo);
+                }
+                Console.WriteLine();
+            }
+
+        }
+        /// <summary>
+        /// 28 Avgust 2016  Zada4a   4
+        /// </summary>
+        static void Bolnica()
+        {
+            int period = int.Parse(Console.ReadLine());
+
+            int brPregledani = 0;
+            int brNePregledani = 0;
+            int brLekari = 7;
+            int brOb6toPregledani = 0;
+            int brOb6toNepregledani = 0;
+
+            for (int den = 1; den <= period; den++)
+            {
+                int broiPacienti = int.Parse(Console.ReadLine());
+                if (den % 3 == 0 && brOb6toNepregledani > brOb6toPregledani)
+                {
+                    brLekari++;
+                }
+                if (broiPacienti <= brLekari)
+                {
+                    brPregledani = broiPacienti;
+                    brNePregledani = 0;
+                }
+                if (broiPacienti > brLekari)
+                {
+                    brPregledani = brLekari;
+                    brNePregledani = broiPacienti - brLekari;
+                }
+                brOb6toPregledani += brPregledani;
+                brOb6toNepregledani += brNePregledani;
+
+            }
+            Console.WriteLine("Treated patients: {0}.", brOb6toPregledani);
+            Console.WriteLine("Untreated patients: {0}.", brOb6toNepregledani);
+        }
+        /// <summary>
+        /// 28 Avgust 2016  Zada4a   2
+        /// </summary>
+        static void Firma()
+        {
+            int neobhodimi4asove = int.Parse(Console.ReadLine());
+            int broiDni = int.Parse(Console.ReadLine());
+            int slujiteli = int.Parse(Console.ReadLine());
+            double chasoveZaRabota = ((double)broiDni - 0.1 * (double)broiDni) * 8;
+            double chasoveIzvunr = (double)slujiteli * 2 * (double)broiDni;
+            double ob6to4asove = Math.Floor(chasoveIzvunr + chasoveZaRabota);
+
+            if (ob6to4asove >= neobhodimi4asove)
+            {
+                Console.WriteLine("Yes!{0} hours left.", Math.Floor(ob6to4asove - neobhodimi4asove));
+            }
+            if (ob6to4asove < neobhodimi4asove)
+            {
+                Console.WriteLine("Not enough time!{0} hours needed.", Math.Floor(neobhodimi4asove - ob6to4asove));
+            }
+        }
+        /// <summary>
+        /// 28 Avgust 2016  Zada4a   1
+        /// </summary>
+        static void DnevnaPe4alba()
+        {
+            int rabotniDni = int.Parse(Console.ReadLine());
+            decimal pariNaDen = decimal.Parse(Console.ReadLine());
+            decimal kursNaDolara = decimal.Parse(Console.ReadLine());
+
+            decimal zaplataNaMesec = (decimal)rabotniDni * pariNaDen;
+            decimal godi6naZaplata = zaplataNaMesec * 12m + 2.5m * zaplataNaMesec;
+            decimal danuk = 0.25m * godi6naZaplata;
+            decimal godi6no4istaZaplata = godi6naZaplata - danuk;
+            decimal zaplataVLeva = godi6no4istaZaplata * kursNaDolara;
+            decimal pe4albaNaDen = zaplataVLeva / 365m;
+            Console.WriteLine("{0:f2}", pe4albaNaDen);
+        }
+        /// <summary>
+        /// 17 Iuli 2016  Zada4a 6
+        /// </summary>
+        static void Stopira6to4islo()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int m = int.Parse(Console.ReadLine());
+            int s = int.Parse(Console.ReadLine());
+
+            for (int i = m; i >= n; i--)
+            {
+                if (i % 2 == 0 && i % 3 == 0)
+                {
+                    if (i == s)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.Write("{0} ", i);
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 17 Iuli 2016  Zada4a 4
+        /// </summary>
+        static void Zavru6taneVMinaloto()
+        {
+            decimal pari = decimal.Parse(Console.ReadLine());
+            int godinaJivot = int.Parse(Console.ReadLine());
+
+            decimal pari4etnaGodina = 0;
+            decimal pariNe4etnaGodina = 0;
+            int godiniIvan4o = 17;
+
+            for (int godina = 1800; godina <= godinaJivot; godina++)
+            {
+                godiniIvan4o++;
+                if (godina % 2 == 0)
+                {
+                    pari4etnaGodina += 12000;
+                }
+                if (godina % 2 == 1)
+                {
+                    pariNe4etnaGodina += 12000 + 50 * godiniIvan4o;
+                }
+            }
+            decimal pariOb6to = pari4etnaGodina + pariNe4etnaGodina;
+            if (pari >= pariOb6to)
+            {
+                Console.WriteLine("Yes! He will live a carefree life and will have {0:f2} dollars left.", pari - pariOb6to);
+            }
+            if (pari < pariOb6to)
+            {
+                Console.WriteLine("He will need {0:f2} dollars to survive.", pariOb6to - pari);
+            }
+        }
+        /// <summary>
+        /// 17 Iuli 2016  Zada4a 2
+        /// </summary>
+        static void Rekolta()
+        {
+            int kvMGrozde = int.Parse(Console.ReadLine());
+            double grozdeZaEdinKvM = double.Parse(Console.ReadLine());
+            int nujniLitriVino = int.Parse(Console.ReadLine());
+            int broiRabotnici = int.Parse(Console.ReadLine());
+
+            double ob6toGrozde = (double)kvMGrozde * grozdeZaEdinKvM;
+            double grozdeZaVino = 0.4 * ob6toGrozde;
+            double litriVino = grozdeZaVino / 2.5;
+            if (nujniLitriVino > litriVino)
+            {
+                Console.WriteLine("It will be a tough winter! More {0} liters wine needed.", Math.Floor(nujniLitriVino - litriVino));
+
+            }
+            if (nujniLitriVino <= litriVino)
+            {
+                Console.WriteLine("Good harvest this year! Total wine: {0} liters.", Math.Floor(litriVino));
+                Console.WriteLine("{0} liters left -> {1} liters per person.", Math.Ceiling(litriVino - nujniLitriVino), Math.Ceiling((litriVino - nujniLitriVino) / broiRabotnici));
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    11
+        /// </summary>
+        static void EdnakviDvoiki()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int previous = 0;
+            bool ravni = true;
+
+            int bestDiff = int.MinValue;
+
+            for (int i = 1; i <= n; i++)
+            {
+                int purvo = int.Parse(Console.ReadLine());
+                int vtoro = int.Parse(Console.ReadLine());
+
+                int current = purvo + vtoro;
+
+                if (current != previous && i != 1)
+                {
+                    ravni = false;
+                }
+
+                if (Math.Abs(current - previous) > bestDiff && i != 1)
+                {
+                    bestDiff = Math.Abs(current - previous);
+                }
+
+                previous = current;
+            }
+            if (ravni)
+            {
+                Console.WriteLine($"Yes, value={previous}");
+            }
+            else
+            {
+                Console.WriteLine($"No, maxdiff={bestDiff}");
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    10
+        /// </summary>
+        static void ChetniNe4etniPozicii()
+        {
+            int n = int.Parse(Console.ReadLine());
+            double sum4etni = 0;
+            double chetniMin = double.MaxValue;
+            double chetniMax = double.MinValue;
+            double sumNe4etni = 0;
+            double ne4etniMin = double.MaxValue;
+            double ne4etniMax = double.MinValue;
+            for (int i = 1; i <= n; i++)
+            {
+                double chislo = double.Parse(Console.ReadLine());
+                if (i % 2 == 1)
+                {
+                    sumNe4etni = sumNe4etni + chislo;
+                    if (chislo > ne4etniMax)
+                    {
+                        ne4etniMax = chislo;
+                    }
+                    if (chislo < ne4etniMin)
+                    {
+                        ne4etniMin = chislo;
+                    }
+                }
+                if (i % 2 == 0)
+                {
+                    sum4etni = sum4etni + chislo;
+                    if (chislo > chetniMax)
+                    {
+                        chetniMax = chislo;
+                    }
+                    if (chislo < chetniMin)
+                    {
+                        chetniMin = chislo;
+                    }
+                }
+            }
+            if (n <= 0)
+            {
+                Console.WriteLine("OddSum=0");
+                Console.WriteLine("OddMin No");
+                Console.WriteLine("OddMax No");
+            }
+            else
+            {
+                Console.WriteLine("OddSum={0}", sumNe4etni);
+                Console.WriteLine("OddMin={0}", ne4etniMin);
+                Console.WriteLine("OddMax={0}", ne4etniMax);
+            }
+
+            if (n <= 1)
+            {
+                Console.WriteLine("EvenSum=0");
+                Console.WriteLine("EvenMin No");
+                Console.WriteLine("EvenMax No");
+            }
+            else
+            {
+                Console.WriteLine("EvenSum={0}", sum4etni);
+                Console.WriteLine("EvenMin={0}", chetniMin);
+                Console.WriteLine("EvenMax={0}", chetniMax);
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    9
+        /// </summary>
+        static void ElementRavenNasumataNaOstanalite()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int naiGolqmo4islo = int.MinValue;
+            int sum = 0;
+            for (int i = 0; i < n; i++)
+            {
+                int chislo = int.Parse(Console.ReadLine());
+                if (chislo > naiGolqmo4islo)
+                {
+                    naiGolqmo4islo = chislo;
+                }
+                sum = sum + chislo;
+            }
+            if (sum - naiGolqmo4islo == naiGolqmo4islo)
+            {
+                Console.WriteLine("Yes");
+                Console.WriteLine("Sum = {0}", naiGolqmo4islo);
+            }
+            else
+            {
+                Console.WriteLine("No");
+                Console.WriteLine("Diff = {0}", Math.Abs(naiGolqmo4islo - (sum - naiGolqmo4islo)));
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    9
+        /// </summary>
+        static void SumiraneNaGlasniteBukvi()
+        {
+            string input = Console.ReadLine();
+
+            int sum = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                switch (input[i])
+                {
+                    case 'a':
+                        sum += 1;
+                        break;
+                    case 'e':
+                        sum += 2;
+                        break;
+                    case 'i':
+                        sum += 3;
+                        break;
+                    case 'o':
+                        sum += 4;
+                        break;
+                    case 'u':
+                        sum += 5;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            Console.WriteLine(sum);
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    8
+        /// </summary>
+        static void ChetnaNe4etnaSuma()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int chetni = 0;
+            int ne4etni = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                int chislo = int.Parse(Console.ReadLine());
+                if (i % 2 == 1)
+                {
+                    ne4etni += chislo;
+                }
+                if (i % 2 == 0)
+                {
+                    chetni += chislo;
+                }
+            }
+            if (chetni == ne4etni)
+            {
+                Console.WriteLine("Yes");
+                Console.WriteLine("Sum = {0}", chetni);
+            }
+            else
+            {
+                Console.WriteLine("No");
+                Console.WriteLine("Diff = {0}", Math.Abs(chetni - ne4etni));
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    7
+        /// </summary>
+        static void LqvaIDqsnaSuma()
+        {
+            int suma1 = 0;
+            int n = int.Parse(Console.ReadLine());
+            for (int i = 0; i < n; i++)
+            {
+                int chislo = int.Parse(Console.ReadLine());
+                suma1 = suma1 + chislo;
+            }
+            int suma2 = 0;
+            for (int k = 0; k < n; k++)
+            {
+                int chislo1 = int.Parse(Console.ReadLine());
+                suma2 = suma2 + chislo1;
+            }
+            if (Math.Abs(suma1 - suma2) == 0)
+            {
+                Console.WriteLine("Yes, sum = {0}", suma1);
+            }
+            else
+            {
+                Console.WriteLine("No, diff = {0}", Math.Abs(suma1 - suma2));
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    6
+        /// </summary>
+        static void NaiMalko4islo()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int naiMalko4islo = int.MaxValue;
+            for (int i = 0; i < n; i++)
+            {
+                int chislo = int.Parse(Console.ReadLine());
+                if (chislo < naiMalko4islo)
+                {
+                    naiMalko4islo = chislo;
+                }
+            }
+            Console.WriteLine(naiMalko4islo);
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    5
+        /// </summary>
+        static void NaiGolqmoChislo()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int naiGolqmo4islo = int.MinValue;
+            for (int i = 0; i < n; i++)
+            {
+                int chislo = int.Parse(Console.ReadLine());
+                if (chislo > naiGolqmo4islo)
+                {
+                    naiGolqmo4islo = chislo;
+                }
+            }
+            Console.WriteLine(naiGolqmo4islo);
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    4
+        /// </summary>
+        static void SumiraneNa4isla()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int sum = 0;
+            for (int i = 0; i < n; i++)
+            {
+                int chislo = int.Parse(Console.ReadLine());
+                sum = sum + chislo;
+            }
+            Console.WriteLine(sum);
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    3
+        /// </summary>
+        static void Vsi4kiLatinskiBukvi()
+        {
+            for (char i = 'a'; i <= 'z'; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    2
+        /// </summary>
+        static void ChislataDo1000Zavu6va6tiNa7()
+        {
+            for (int i = 1; i <= 1000; i++)
+            {
+                if (i % 10 == 7)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        /// <summary>
+        /// Povtoreniq cikli   Zada4a    1
+        /// </summary>
+        static void ChislataOt1Do100()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
+
+        /// <summary>
+        /// Po-slojni logi4eski proverki Zada4a   14
+        /// </summary>
+        static void To4kaVuvFigurata()
+        {
+            int h = int.Parse(Console.ReadLine());
+            int x = int.Parse(Console.ReadLine());
+            int y = int.Parse(Console.ReadLine());
+
+            if ((x == h && y >= h && y <= h * 4) || (x == 2 * h && y >= h && y <= 4 * h)
+                || (y == 4 * h && x >= h && x <= 2 * h) || (y == 0 && x >= 0 && x <= 3 * h)
+                || (y == h && x >= 0 && x <= h) || (y == h && x >= 2 * h && x <= 3 * h)
+                || (x == 0 && y >= 0 && y <= h) || (x == 3 * h && y >= 0 && y <= h))
+            {
+                Console.WriteLine("border");
+            }
+            else if ((x > h && x < 2 * h && y > 0 && y < 4 * h) || (x > 0 && x < 3 * h && y > 0 && y < h))
+            {
+                Console.WriteLine("inside");
+            }
+            else
+            {
+                Console.WriteLine("outside");
+            }
+
+        }
+
+        /// <summary>
+        ///  Po-slojni logi4eski proverki Zada4a   13
+        /// </summary>
+        static void Voleibol()
+        {
+            string godina = Console.ReadLine();
+            int broiPraznici = int.Parse(Console.ReadLine());
+            int broiUikendiRG = int.Parse(Console.ReadLine());
+
+            int uikendiVSf = 48 - broiUikendiRG;
+            double igriVSF = 3 / 4d * uikendiVSf + 2 / 3d * broiPraznici;
+            double ob6toIgri = igriVSF + broiUikendiRG;
+
+            if (godina == "leap")
+            {
+                Console.WriteLine("{0}", Math.Floor(ob6toIgri + 15 / 100d * ob6toIgri));
+            }
+            if (godina == "normal")
+            {
+                Console.WriteLine("{0}", Math.Floor(ob6toIgri));
+            }
+        }
+
+        /// <summary>
+        /// Po-slojni logi4eski proverki Zada4a   12
+        /// </summary>
+        static void Kino()
+        {
+            string tipProjekciq = Console.ReadLine();
+            int broiRedove = int.Parse(Console.ReadLine());
+            int broiColoni = int.Parse(Console.ReadLine());
+
+            if (tipProjekciq == "Premiere")
+            {
+                Console.WriteLine("{0:f2} leva", broiRedove * broiColoni * 12.00m);
+            }
+            if (tipProjekciq == "Normal")
+            {
+                Console.WriteLine("{0:f2} leva", broiRedove * broiColoni * 7.50m);
+            }
+            if (tipProjekciq == "Discount")
+            {
+                Console.WriteLine("{0:f2} leva", broiRedove * broiColoni * 5m);
+            }
+        }
+
+        /// <summary>
+        /// Po-slojni logi4eski proverki Zada4a   11
+        /// </summary>
+        static void KLasJivotno()
+        {
+            string jivotno = Console.ReadLine();
+
+            switch (jivotno)
+            {
+                case "dog":
+                    Console.WriteLine("mammal");
+                    break;
+                case "crocodile":
+
+                case "tortoise":
+
+                case "snake":
+                    Console.WriteLine("reptile");
+                    break;
+                default:
+                    Console.WriteLine("unknown");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Po-slojni logi4eski proverki Zada4a   10
+        /// </summary>
+        static void DenOtSedmicata()
+        {
+            int den = int.Parse(Console.ReadLine());
+
+            switch (den)
+            {
+                case 1:
+                    Console.WriteLine("Monday");
+                    break;
+                case 2:
+                    Console.WriteLine("Tuesday");
+                    break;
+                case 3:
+                    Console.WriteLine("Wednesday");
+                    break;
+                case 4:
+                    Console.WriteLine("Thursday");
+                    break;
+                case 5:
+                    Console.WriteLine("Friday");
+                    break;
+                case 6:
+                    Console.WriteLine("Saturday");
+                    break;
+                case 7:
+                    Console.WriteLine("Sunday");
+                    break;
+
+
+                default:
+                    Console.WriteLine("error");
+                    break;
+            }
+
+        }
+
+        /// <summary>
+        /// Po-slojni logi4eski proverki Zada4a   9
+        /// </summary>
+        static void TurgovskiKomisionni()
+        {
+            string grad = Console.ReadLine();
+            decimal obemProdajbi = decimal.Parse(Console.ReadLine());
+
+            if (grad == "Sofia")
+            {
+                if (obemProdajbi >= 0 && obemProdajbi <= 500)
+                {
+                    Console.WriteLine("{0:f2}", 5 / 100m * obemProdajbi);
+                }
+                if (obemProdajbi > 500 && obemProdajbi <= 1000)
+                {
+                    Console.WriteLine("{0:f2}", 7 / 100m * obemProdajbi);
+                }
+                if (obemProdajbi > 1000 && obemProdajbi <= 10000)
+                {
+                    Console.WriteLine("{0:f2}", 8 / 100m * obemProdajbi);
+                }
+                if (obemProdajbi > 10000)
+                {
+                    Console.WriteLine("{0:f2}", 12 / 100m * obemProdajbi);
+                }
+            }
+            if (grad == "Varna")
+            {
+
+                if (obemProdajbi >= 0 && obemProdajbi <= 500)
+                {
+                    Console.WriteLine("{0:f2}", 4.5m / 100 * obemProdajbi);
+                }
+                if (obemProdajbi > 500 && obemProdajbi <= 1000)
+                {
+                    Console.WriteLine("{0:f2}", 7.5m / 100 * obemProdajbi);
+                }
+                if (obemProdajbi > 1000 && obemProdajbi <= 10000)
+                {
+                    Console.WriteLine("{0:f2}", 10 / 100m * obemProdajbi);
+                }
+                if (obemProdajbi > 10000)
+                {
+                    Console.WriteLine("{0:f2}", 13 / 100m * obemProdajbi);
+                }
+            }
+            if (grad == "Plovdiv")
+            {
+
+                if (obemProdajbi >= 0 && obemProdajbi <= 500)
+                {
+                    Console.WriteLine("{0:f2}", 5.5m / 100 * obemProdajbi);
+                }
+                if (obemProdajbi > 500 && obemProdajbi <= 1000)
+                {
+                    Console.WriteLine("{0:f2}", 8 / 100m * obemProdajbi);
+                }
+                if (obemProdajbi > 1000 && obemProdajbi <= 10000)
+                {
+                    Console.WriteLine("{0:f2}", 12 / 100m * obemProdajbi);
+                }
+                if (obemProdajbi > 10000)
+                {
+                    Console.WriteLine("{0:f2}", 14.5m / 100 * obemProdajbi);
+                }
+            }
+            if ((grad != "Sofia" && grad != "Varna" && grad != "Plovdiv") || obemProdajbi < 0)
+            {
+                Console.WriteLine("error");
+            }
+
+        }
+
+        /// <summary>
+        /// Po-slojni logi4eski proverki  Zada4a  8
+        /// </summary>
+        static void MagazinZaPlodove()
+        {
+            string plod = Console.ReadLine();
+            string denOtsedmicata = Console.ReadLine();
+            decimal koli4estvo = decimal.Parse(Console.ReadLine());
+
+            if (denOtsedmicata == "Monday" || denOtsedmicata == "Tuesday" || denOtsedmicata == "Wednesday"
+                || denOtsedmicata == "Thursday" || denOtsedmicata == "Friday")
+            {
+
+                if (plod == "banana")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 2.5m);
+                }
+                else if (plod == "apple")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 1.2m);
+                }
+                else if (plod == "orange")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 0.85m);
+                }
+                else if (plod == "grapefruit")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 1.45m);
+                }
+                else if (plod == "kiwi")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 2.7m);
+                }
+                else if (plod == "pineapple")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 5.5m);
+                }
+                else if (plod == "grapes")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 3.85m);
+                }
+
+            }
+            if (denOtsedmicata == "Saturday" || denOtsedmicata == "Sunday")
+            {
+
+                if (plod == "banana")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 2.7m);
+                }
+                else if (plod == "apple")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 1.25m);
+                }
+                else if (plod == "orange")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 0.9m);
+                }
+                else if (plod == "grapefruit")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 1.6m);
+                }
+                else if (plod == "kiwi")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 3m);
+                }
+                else if (plod == "pineapple")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 5.6m);
+                }
+                else if (plod == "grapes")
+                {
+                    Console.WriteLine("{0:f2}", koli4estvo * 4.2m);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("error");
+            }
+        }
+
+        /// <summary>
+        /// Po-slojni logi4eski proverki   Zada4a   7
+        /// </summary>
+        static void To4kaNaStranaNaPravougulnik()
+        {
+            double x1 = double.Parse(Console.ReadLine());
+            double y1 = double.Parse(Console.ReadLine());
+            double x2 = double.Parse(Console.ReadLine());
+            double y2 = double.Parse(Console.ReadLine());
+            double x = double.Parse(Console.ReadLine());
+            double y = double.Parse(Console.ReadLine());
+
+            if ((x <= x2 && x >= x1 && y == y1) || (x <= x2 && x >= x1 && y == y2)
+                || (y <= y2 && y >= y1 && x == x1) || (y <= y2 && y >= y1 && x == x2))
+            {
+                Console.WriteLine("Border");
+            }
+            else
+            {
+                Console.WriteLine("Inside / Outside");
+            }
+        }
+
+        /// <summary>
+        /// Po-slojno logi4eski Proverki Zada4a   6
+        /// </summary>
+        static void Nevalidno4islo()
+        {
+            int a = int.Parse(Console.ReadLine());
+            if ((a >= 100 && a <= 200) || a == 0)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Invalid");
+            }
+        }
+
+        /// <summary>
+        /// Po slojni logi4eski proverki zada4a   5
+        /// </summary>
+        static void PLOdIliZelen4uk()
+        {
+            string plodIliZelen4uk = Console.ReadLine();
+
+            if (plodIliZelen4uk == "banana" || plodIliZelen4uk == "apple" || plodIliZelen4uk == "kiwi" ||
+                plodIliZelen4uk == "cherry" || plodIliZelen4uk == "lemon" || plodIliZelen4uk == "grapes")
+            {
+                Console.WriteLine("fruit");
+            }
+            else if (plodIliZelen4uk == "tomato" || plodIliZelen4uk == "cucumber" || plodIliZelen4uk == "pepper" ||
+                plodIliZelen4uk == "carrot")
+            {
+                Console.WriteLine("vegetable");
+            }
+            else
+            {
+                Console.WriteLine("unknown");
+            }
+        }
+
+        /// <summary>
+        /// To4ka v Pravougulnik   Zada4a   4
+        /// </summary>
+        static void POSlojniLogi4eskiProverki()
+        {
+            double x1 = double.Parse(Console.ReadLine());
+            double y1 = double.Parse(Console.ReadLine());
+            double x2 = double.Parse(Console.ReadLine());
+            double y2 = double.Parse(Console.ReadLine());
+            double x = double.Parse(Console.ReadLine());
+            double y = double.Parse(Console.ReadLine());
+
+            if (x <= x2 && x >= x1 && y >= y1 && y <= y2)
+            {
+                Console.WriteLine("Inside");
+            }
+            else
+            {
+                Console.WriteLine("Outside");
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        static void DeleneBezOstatukk()
         {
             char s = (char)65;
             int a = (int)65.3;
@@ -19,7 +3106,7 @@ namespace NikoletaSolution
             //DeleneBezOstatuk();
 
 
-            decimal bitcoini = decimal.Parse(Console.ReadLine());  
+            decimal bitcoini = decimal.Parse(Console.ReadLine());
             decimal kitai = decimal.Parse(Console.ReadLine());
             decimal komisionna = decimal.Parse(Console.ReadLine());
 
@@ -32,7 +3119,6 @@ namespace NikoletaSolution
             Console.WriteLine("{0:f2}", par);
 
         }
-
 
         /// <summary>
         /// 24 April 2016   Zada4a   6
@@ -2471,7 +5557,6 @@ namespace NikoletaSolution
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -2643,7 +5728,6 @@ namespace NikoletaSolution
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -2679,7 +5763,6 @@ namespace NikoletaSolution
                 }
             }
         }
-
 
         /// <summary>
         /// 
@@ -2748,7 +5831,6 @@ namespace NikoletaSolution
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -2792,7 +5874,6 @@ namespace NikoletaSolution
             }
         }
 
-
         static void Peperuda()
         {
             int n = int.Parse(Console.ReadLine());
@@ -2826,10 +5907,6 @@ namespace NikoletaSolution
             }
 
         }
-
-
-
-
 
         static void Mart2016Zad5()
         {
@@ -2870,7 +5947,6 @@ namespace NikoletaSolution
 
             }
         }
-
 
         static void Sasooooo()
         {
@@ -3089,7 +6165,6 @@ namespace NikoletaSolution
             }
         }
 
-
         /// <summary>
         /// Risuvane na romb sus zvezdichki.
         /// </summary>
@@ -3137,8 +6212,6 @@ namespace NikoletaSolution
             }
         }
 
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -3161,9 +6234,6 @@ namespace NikoletaSolution
                 Console.WriteLine();
             }
         }
-
-
-
 
         /// <summary>
         /// 
@@ -3189,18 +6259,8 @@ namespace NikoletaSolution
 
         }
 
-
-
-
-
-
-
-
-
-
-
         /// <summary>
-        /// 
+        /// Batman kartinka
         /// </summary>
         static void Batman()
         {
@@ -3277,7 +6337,6 @@ namespace NikoletaSolution
 
 
         }
-
 
         /// <summary>
         /// 
