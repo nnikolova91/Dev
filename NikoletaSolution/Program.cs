@@ -8,6 +8,209 @@ namespace NikoletaSolution
     {
         static void Main()
         {
+            var numbers = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+
+            string comand = Console.ReadLine();
+
+            while (comand!="print")
+            {
+                var comandArgs = comand
+                    .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToArray();
+
+                if (comandArgs[0] == "add") 
+                {
+                    numbers.Insert(int.Parse(comandArgs[1]), int.Parse(comandArgs[2]));
+                }
+                else if (comandArgs[0] == "addMany")
+                {
+                    numbers.InsertRange(int.Parse(comandArgs[1]), 
+                        comandArgs.Skip(2).Select(int.Parse).ToArray());
+                }
+                else if (comandArgs[0] == "contains")
+                {
+                    int number = int.Parse(comandArgs[1]);
+                   // if (numbers.Contains(number))
+                    //{
+                        Console.WriteLine(numbers.IndexOf(number));
+                    //}                    
+                }
+                else if (comandArgs[0] == "remove")
+                {
+                    numbers.RemoveAt(int.Parse(comandArgs[1]));
+                }
+                else if (comandArgs[0] == "shift")
+                {
+                    int number = int.Parse(comandArgs[1]);
+                    number = number % numbers.Count;
+                    for (int i = 0; i < number; i++)
+                    {
+                        numbers.Add(numbers[0]);
+                        numbers.RemoveAt(0);
+                    }
+                }
+                else if (comandArgs[0] == "sumPairs")
+                {
+                    for (int i = 0; i < numbers.Count-1; i++)
+                    {
+                        var sum = numbers[i] + numbers[i + 1];
+                        numbers[i] = sum;
+                        numbers.RemoveAt(i + 1);
+
+                    }
+                }
+
+                comand = Console.ReadLine();
+            }
+
+            Console.WriteLine($"[{string.Join(", ", numbers)}]");
+        }
+
+        /// <summary>
+        /// Nai-dulga redica ot 4isla v masiv Zada4a 1
+        /// </summary>
+        static void ListoveUprZada4a1()
+        {
+            //List<int> numbers
+            var numbers = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+            int count = 1;
+            int number = 0;
+            int maxCount = 0;
+            bool ima = false;
+
+            for (int i = 0; i < numbers.Count - 1; i++)
+            {
+                if (numbers[i] == numbers[i + 1])
+                {
+                    count++;
+
+                    if (count > maxCount)
+                    {
+                        maxCount = count;
+                        number = numbers[i];
+                    }
+                    ima = true;
+                }
+                else
+                {
+                    count = 1;
+                }
+            }
+            if (ima == false)
+            {
+                Console.WriteLine(numbers[0]);
+            }
+            else
+            {
+                for (int i = 0; i < maxCount; i++)
+                {
+                    Console.Write($"{number} ");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Golemi i Malki bukvi
+        /// </summary>
+        static void GolemiIMalkiBukvi()
+        {
+            string input = Console.ReadLine();
+            var array = input.ToCharArray();
+            //Ako v masiva ot 4arove ima glavni bukvi   Any- koito i da e, All - vsi4ki elementi
+            if (array.Any(n => Char.IsLower(n)))
+            {
+
+            }
+        }
+        /// <summary>
+        /// Sbor na posledovatelni ednakvi 4isla  Zada4a 3
+        /// </summary>
+        static void ListoveZada4a3()
+        {
+            List<decimal> nums =
+                 Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(decimal.Parse)
+                .ToList();
+
+            for (int k = 0; k < nums.Count - 1; k++)
+            {
+                if (nums[k] == nums[k + 1])
+                {
+                    nums[k] += nums[k + 1];
+                    nums.RemoveAt(k + 1);
+                    k = -1;
+                }
+            }
+
+            Console.WriteLine(string.Join(" ", nums));
+        }
+
+        /// <summary>
+        /// obru6tane na 4isla razdeleni s "|" i " "  Zada4a   2
+        /// </summary>
+        static void ListoveZada4a2()
+        {
+            string[] chisla =
+                 Console.ReadLine()
+                .Split('|');
+
+
+            List<int> results = new List<int>();
+
+            for (int i = chisla.Length - 1; i >= 0; i--)
+            {
+                int[] element =
+                    chisla[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
+                    .ToArray();
+
+                results.AddRange(element);
+            }
+            Console.WriteLine(String.Join(" ", results));
+
+        }
+
+        private static object Select(Func<string, int> parse)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Premahvane na otricatelni elementi ot spisak  Zada4a   1
+        /// </summary>
+        static void SpisukZad1()
+        {
+            int[] chisla = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            List<int> chislaa = new List<int>(chisla);
+            chislaa.Reverse();
+
+            chislaa.RemoveAll(x => x < 0);
+            if (chislaa.Count == 0)
+            {
+                Console.WriteLine("empty");
+            }
+            else
+            {
+                Console.WriteLine(String.Join(" ", chislaa));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static void Masivi()
+        {
             int[] arr = Console.ReadLine()
                  .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                  .Select(x => int.Parse(x))
