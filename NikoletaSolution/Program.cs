@@ -12,6 +12,229 @@ namespace NikoletaSolution
                  .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                  .Select(x => int.Parse(x))
                  .ToArray();
+            int broi4isla = 0;
+
+            if (arr.Length == 1 )
+            {
+                Console.Write(arr[0]);
+            }
+            
+            else if (arr.Length%2==0)
+            {
+                broi4isla = (arr.Length - 2) / 2;
+                for (int i = 0; i <= broi4isla+2-1; i++)
+                {
+                    if (i>broi4isla-1)
+                    {
+                        Console.Write(arr[i]);
+                        Console.Write(" ");
+                    }
+                }
+            }
+            else if (arr.Length % 2 == 1)
+            {
+                broi4isla = (arr.Length - 3) / 2;
+                for (int i = 0; i <= broi4isla + 3 - 1; i++)
+                {
+                    if (i > broi4isla - 1)
+                    {
+                        Console.Write(arr[i]);
+                        Console.Write(" ");
+                    }
+                }
+            }
+            Console.WriteLine();
+
+        }
+        /// <summary>
+        /// Svejdaneto na masiv do edno 4islo 4rez sumirane   Zada4a 8
+        /// </summary>
+        static void MasiviZad8()
+        {
+            int[] arr1 = Console.ReadLine()
+                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                 .Select(x => int.Parse(x))
+                 .ToArray();
+            if (arr1.Length == 1)
+            {
+                Console.WriteLine(arr1[0]);
+            }
+            else
+            {
+                for (int j = arr1.Length - 1; j > 0; j--)
+                {
+                    int[] condenzed = new int[j];
+
+                    for (int i = 0, m = arr1.Length - 1; i <= arr1.Length - 2; i++, m--)
+                    {
+                        if (i >= j)
+                        {
+                            break;
+                        }
+                        condenzed[i] = arr1[i] + arr1[i + 1];
+                        arr1[i] = condenzed[i];
+                    }
+                    if (j == 1)
+                    {
+                        Console.WriteLine(condenzed[j - 1]);
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Sbor na elementite na dva masiva s razli4na duljina Zada4a   7
+        /// </summary>
+        static void MasiviZad7()
+        {
+            int[] arr1 = Console.ReadLine()
+                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                 .Select(x => int.Parse(x))
+                 .ToArray();
+            int[] arr2 = Console.ReadLine()
+                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                 .Select(x => int.Parse(x))
+                 .ToArray();
+
+            int max = Math.Max(arr1.Length, arr2.Length);
+            int min = Math.Min(arr1.Length, arr2.Length);
+
+
+            int sum = 0;
+            int[] arr = new int[max];
+
+            for (int i = 0, m = 0; i <= max - 1; i++, m++)
+            {
+                if (arr2.Length < arr1.Length)
+                {
+                    if (m < min)
+                    {
+                        arr[i] = arr2[m];
+                        sum = arr[i] + arr1[i];
+                        Console.Write("{0} ", sum);
+                    }
+                    else
+                    {
+                        m = -1;
+                        i--;
+                    }
+                }
+                else
+                {
+                    if (m < min)
+                    {
+                        arr[i] = arr1[m];
+                        sum = arr[i] + arr2[i];
+                        Console.Write("{0} ", sum);
+                    }
+                    else
+                    {
+                        m = -1;
+                        i--;
+                    }
+                }
+
+            }
+
+        }
+        /// <summary>
+        /// Sbor na kraini 4etvurti sus sreda na masiv  Zada4a   3
+        /// </summary>
+        static void MAsiviUprZad3()
+        {
+            int[] arr = Console.ReadLine()
+                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                 .Select(x => int.Parse(x))
+                 .ToArray();
+
+            int[] newarr = new int[arr.Length / 2];
+            int[] left = new int[arr.Length / 4];
+            int[] right = new int[arr.Length / 4];
+
+            int sum = 0;
+
+            for (int i = arr.Length / 4 - 1, k = 0; i >= 0 && k <= arr.Length / 4 - 1; i--, k++)
+            {
+                left[k] = arr[i];
+            }
+            for (int k = arr.Length - 1, j = 0; j <= arr.Length / 4 - 1 && k >= 3 * (arr.Length / 4); k--, j++)
+            {
+                right[j] = arr[k];
+            }
+            newarr = left.Concat(right).ToArray();
+
+            int[] myarr = new int[arr.Length / 2];
+
+            for (int i = arr.Length / 4, k = 0; i <= 3 * (arr.Length / 4) - 1; i++, k++)
+            {
+                myarr[k] = arr[i];
+            }
+
+            for (int i = 0; i <= arr.Length / 2 - 1; i++)
+            {
+                sum = myarr[i] + newarr[i];
+                Console.Write(sum);
+                Console.Write(" ");
+            }
+            Console.WriteLine();
+        }
+        /// <summary>
+        /// Razdelqne na masiv na ednakvi po sbor polovini  Zada4a  11
+        /// </summary>
+        static void MasiviUPRZAd11()
+        {
+            int[] arr = Console.ReadLine()
+                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                 .Select(x => int.Parse(x))
+                 .ToArray();
+
+            int sum1 = 0;
+            int sum2 = 0;
+            bool ima = false;
+            if (arr.Length == 1)
+            {
+                Console.WriteLine("0");
+            }
+            else
+            {
+                for (int i = 1; i <= arr.Length - 2; i++)
+                {
+                    for (int k = i - 1, m = i + 1; k >= 0 || m <= arr.Length - 1; k--, m++)
+                    {
+                        if (k >= 0)
+                        {
+                            sum1 += arr[k];
+                        }
+                        if (m <= arr.Length - 1)
+                        {
+                            sum2 += arr[m];
+                        }
+                    }
+                    if (sum1 == sum2)
+                    {
+                        Console.WriteLine(i);
+                        ima = true;
+                    }
+                    else
+                    {
+                        sum1 = 0;
+                        sum2 = 0;
+                    }
+                }
+                if (ima == false)
+                {
+                    Console.WriteLine("no");
+                }
+            }
+        }
+        /// <summary>
+        /// Dvoiki 4isla s ednakva razlika  Zada4a    10
+        /// </summary>
+        static void MasiviUPRZad10()
+        {
+            int[] arr = Console.ReadLine()
+                 .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                 .Select(x => int.Parse(x))
+                 .ToArray();
             int razlika = int.Parse(Console.ReadLine());
 
             int broi = 0;
@@ -19,13 +242,13 @@ namespace NikoletaSolution
 
             for (int i = 0; i <= arr.Length - 1; i++)
             {
-                for (int k = 0; k <= arr.Length - 1; k++)
+                for (int k = i; k >= 0; k--)
                 {
                     if (Math.Max(arr[i], arr[k]) - Math.Min(arr[k], arr[i]) == razlika)
                     {
                         broi++;
                         ima = true;
-                        Console.WriteLine($"{arr[i]},{arr[k]}");
+                        // Console.WriteLine($"{arr[k]},{arr[i]}");
                     }
                 }
             }
