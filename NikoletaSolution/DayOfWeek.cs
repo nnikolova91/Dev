@@ -2,15 +2,15 @@
 
 namespace NikoletaSolution
 {
-    public class DayOfWeek
-    {
-        private int age;
+    //public class DayOfWeek
+    //{
+    //    private int age;
 
-        public int Age { get; set; }
+    //    public int Age { get; set; }
     
-        public void PrintDayOfWeek(string date)
-        {
-            Console.WriteLine((Convert.ToDateTime(date)).DayOfWeek);
-        }
-    }
+    //    public void PrintDayOfWeek(string date)
+    //    {
+    //        Console.WriteLine((Convert.ToDateTime(date)).DayOfWeek);
+    //    }
+    //}
 }
