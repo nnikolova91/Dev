@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikoletaSolution", "NikoletaSolution\NikoletaSolution.csproj", "{BDAFF866-2364-4A9E-87AE-9F40C4A45087}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechModule", "TechModule\TechModule.csproj", "{0762C178-CFC8-4267-8317-22EE1A82EDB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BDAFF866-2364-4A9E-87AE-9F40C4A45087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDAFF866-2364-4A9E-87AE-9F40C4A45087}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDAFF866-2364-4A9E-87AE-9F40C4A45087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0762C178-CFC8-4267-8317-22EE1A82EDB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0762C178-CFC8-4267-8317-22EE1A82EDB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0762C178-CFC8-4267-8317-22EE1A82EDB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0762C178-CFC8-4267-8317-22EE1A82EDB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

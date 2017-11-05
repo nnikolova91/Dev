@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BDAFF866-2364-4A9E-87AE-9F40C4A45087}</ProjectGuid>
+    <ProjectGuid>{0762C178-CFC8-4267-8317-22EE1A82EDB7}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>NikoletaSolution</RootNamespace>
-    <AssemblyName>NikoletaSolution</AssemblyName>
+    <RootNamespace>TechModule</RootNamespace>
+    <AssemblyName>TechModule</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,13 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cat.cs" />
-    <Compile Include="Book.cs" />
-    <Compile Include="Kupuva4.cs" />
-    <Compile Include="SoftUni.cs" />
-    <Compile Include="Student.cs" />
-    <Compile Include="Dictionaries.cs" />
-    <Compile Include="Dragon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
