@@ -10,6 +10,7 @@ namespace TechModule
     {
         static void Main(string[] args)
         {
+            
         }
     }
 }

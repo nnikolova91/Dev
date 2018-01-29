@@ -5,12 +5,1653 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace NikoletaSolution
 {
     class Program
     {
         static void Main()
+        {
+            var vhod = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+            int rols = vhod[0];
+            int columns = vhod[1];
+
+            int broiOperacii = int.Parse(Console.ReadLine());
+
+            int[,] matrix = new int[rols, columns];
+
+            int iter = 1;
+            for (int r = 0; r < rols; r++)
+            {
+                for (int c = 0; c < columns; c++)
+                {
+                    matrix[r, c] = iter++;
+                }
+            }
+
+            for (int i = 0; i < broiOperacii; i++)
+            {
+                var vh = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToArray();
+
+                string command = vh[1];
+
+
+                if (command == "up" || command == "down")
+                {
+                    int izmestvane = int.Parse(vh[2]) % columns;
+                    int colona = int.Parse(vh[0]);
+                    if (command == "up")
+                    {
+                        for (int k = 0; k < izmestvane; k++)
+                        {
+                            int posledenRed = matrix[0, colona];
+                            for (int row = rols - 1; row > 0; row++)
+                            {
+                                matrix[row - 1, colona] = matrix[row, colona];
+                            }
+                            matrix[matrix.GetLength(0) - 1, colona] = posledenRed;
+                        }
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else if (command == "left" || command == "right")
+                {
+
+                }
+            }
+        }
+
+        private static void RollRow()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void RollColumn()
+        {
+
+        }
+
+
+        /// <summary>
+        /// Fibuna4i zad7,8
+        /// </summary>
+        /// 
+        static long[] numbers;
+        static void Fib()
+        {
+            int n = int.Parse(Console.ReadLine());
+            numbers = new long[n + 2];
+            numbers[1] = 1;
+            numbers[2] = 1;
+
+            long result = Fib(n);
+            Console.WriteLine(result);
+        }
+        private static long Fib(int n)
+        {
+            if (0 == numbers[n])
+            {
+                numbers[n] = Fib(n - 1) + Fib(n - 2);
+
+            }
+            return numbers[n];
+        }
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad6
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad6()
+        {
+            int[] dimentions = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+
+            int rows = dimentions[0];
+            int columns = dimentions[1];
+
+            string snake = Console.ReadLine();
+
+            int[] shot = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+
+            char[,] stairs = FillMatrix(snake, rows, columns);
+
+            stairs = FireShot(shot, stairs);
+            stairs = Gravity(stairs);
+
+            PrintMatrix(stairs);
+        }
+
+        private static void PrintMatrix(char[,] stairs)
+        {
+            var sb = new StringBuilder();
+
+            for (int row = 0; row < stairs.GetLength(0); row++)
+            {
+                for (int col = 0; col < stairs.GetLength(1); col++)
+                {
+                    sb.Append(stairs[row, col]);
+
+                }
+                sb.AppendLine();
+            }
+            string result = sb.ToString().TrimEnd();
+            Console.WriteLine(result);
+        }
+
+        private static char[,] Gravity(char[,] stairs)
+        {
+
+            for (int col = 0; col < stairs.GetLength(1); col++)
+            {
+                int emptyRows = 0;
+                for (int row = 0; row < stairs.GetLength(0); row++)
+                {
+                    if (stairs[row, col] == ' ' && row != 0)
+                    {
+                        for (int i = row; i > 0; i--)
+                        {
+                            stairs[i, col] = stairs[i - 1, col];
+                            stairs[i - 1, col] = ' ';
+                        }
+                        stairs[0, col] = ' ';
+                    }
+                    //if (stairs[row, col] == ' ')
+                    //{
+                    //    emptyRows++;
+                    //}
+                    //else if(emptyRows > 0)
+                    //{
+                    //    stairs[row + emptyRows, col] = stairs[row, col];
+                    //    stairs[row, col] = ' ';
+                    //}
+                }
+
+            }
+            return stairs;
+        }
+
+        private static char[,] FireShot(int[] shot, char[,] stairs)
+        {
+            int row = shot[0];
+            int column = shot[1];
+            int radius = shot[2];
+
+            for (int r = 0; r < stairs.GetLength(0); r++)
+            {
+                for (int c = 0; c < stairs.GetLength(1); c++)
+                {
+                    int a = row - r;
+                    int b = column - c;
+                    double distance = Math.Sqrt(a * a + b * b);
+
+                    if (distance <= radius)
+                    {
+                        stairs[r, c] = ' ';
+                    }
+
+                }
+            }
+            return stairs;
+        }
+
+        private static char[,] FillMatrix(string snake, int rows, int columns)
+        {
+            var matrix = new char[rows, columns];
+            bool isGoingLeft = true;
+
+            int snakeIndex = 0;
+            for (int row = rows - 1; row >= 0; row--)
+            {
+                int index = isGoingLeft ? matrix.GetLength(1) - 1 : 0;
+                int increment = isGoingLeft ? -1 : 1;
+
+                for (int i = 0; i < columns; i++)
+                {
+                    matrix[row, index] = snake[snakeIndex++];
+
+                    if (snakeIndex >= snake.Length)
+                    {
+                        snakeIndex = 0;
+                    }
+                    index += increment;
+                }
+                isGoingLeft = !isGoingLeft;
+            }
+            return matrix;
+        }
+
+
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad6
+        /// </summary>
+        static void Ujaaas()
+        {
+            var vhod = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+            int row = vhod[0];
+            int col = vhod[1];
+
+            var text = Console.ReadLine();//.ToArray();
+
+            var index = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+
+
+
+            //char[,] matrix = ReadMatrix(row, col, text);
+
+            int r = index[0];
+            int c = index[1];
+            int radius = index[2];
+
+            //matrix[r, c] = ' ';
+
+            //FindRadiusRecursiv1(matrix, r, c, radius);
+            //FindRadiusRecursiv2(matrix, r, c, radius);
+            //FindRadiusRecursiv3(matrix, r, c, radius);
+            //FindRadiusRecursiv4(matrix, r, c, radius);
+
+            //for (int i = 0; i < row; i++)
+            //{
+            //    for (int k = 0; k < col; k++)
+            //    {
+            //        Console.Write($"{matrix[i, k]} ");
+            //    }
+            //    Console.WriteLine();
+            //}
+        }
+        //static char[,] ReadMatrix(int row, int col, string text)
+        //{
+        //
+        //    string cqlTekst = "";
+        //    do
+        //    {
+        //        for (int i = 0; i < text.Length; i++)
+        //        {
+        //            cqlTekst += text[i];
+        //            if (cqlTekst.Length == row * col)
+        //            {
+        //                break;
+        //            }
+        //        }
+        //
+        //    } while (cqlTekst.Length != row * col);
+        //
+        //    char[,] matrix = new char[row, col];
+        //
+        //    int broiOperacii = row * col;
+        //
+        //    for (int i = 0; i < row; i++)
+        //    {
+        //        if (row == 0 || row % 2 == 0)
+        //        {
+        //            for (int k = col - 1; k >= 0; k--)
+        //            {
+        //                matrix[i, k] = cqlTekst[broiOperacii];
+        //                broiOperacii--;
+        //            }
+        //        }
+        //        if (row % 2 == 1)
+        //        {
+        //            for (int k = 0; k < col; k++)
+        //            {
+        //                matrix[i, k] = cqlTekst[broiOperacii - 1];
+        //                broiOperacii--;
+        //            }
+        //        }
+        //    }
+        //    return matrix;
+        //}
+        //
+        //static char[,] FindRadiusRecursiv1(char[,] matrix, int r, int c, int radius)
+        //{
+        //    int m = radius;
+        //    //int redove = r + radius;
+        //    int coloni = c + radius;
+        //
+        //    if ( c < coloni)
+        //    {
+        //        matrix[r, c] = ' ';
+        //        matrix[r, c + 1] = ' ';
+        //        matrix[r, c - 1] = ' ';
+        //        matrix[r + 1, c] = ' ';
+        //        matrix[r - 1, c] = ' ';
+        //        c++;
+        //        radius --;
+        //        FindRadiusRecursiv1(matrix, r, c, radius);
+        //        
+        //    }  
+        //    return matrix;
+        //}
+        //static char[,] FindRadiusRecursiv2(char[,] matrix, int r, int c, int radius)
+        //{
+        //    int m = radius;
+        //    //int redove = r + radius;
+        //    int coloni = c - radius;
+        //
+        //    if (radius != 0 && c > coloni)
+        //    {
+        //        matrix[r, c] = ' ';
+        //        FindRadiusRecursiv2(matrix, r, c--, radius--);
+        //
+        //    }
+        //    return matrix;
+        //}
+        //static char[,] FindRadiusRecursiv3(char[,] matrix, int r, int c, int radius)
+        //{
+        //    int m = radius;
+        //    int redove = r + radius;
+        //    //int coloni = c + radius;
+        //
+        //    if (radius != 0 && r < redove)
+        //    {
+        //        matrix[r, c] = ' ';
+        //        FindRadiusRecursiv3(matrix, r++, c, radius--);
+        //
+        //    }
+        //    return matrix;
+        //}
+        //static char[,] FindRadiusRecursiv4(char[,] matrix, int r, int c, int radius)
+        //{
+        //    int m = radius;
+        //    int redove = r - radius;
+        //    //int coloni = c - radius;
+        //
+        //    if (radius != 0 && r > redove)
+        //    {
+        //        matrix[r, c] = ' ';
+        //        FindRadiusRecursiv4(matrix, r--, c, radius--);
+        //
+        //    }
+        //    return matrix;
+        //}
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad4
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad4()
+        {
+            var rowIcol = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            int row = rowIcol[0];
+            int col = rowIcol[1];
+            int[,] matrix = new int[rowIcol[0], rowIcol[1]];
+
+            for (int i = 0; i < row; i++)
+            {
+                var redove = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                for (int k = 0; k < col; k++)
+                {
+                    matrix[i, k] = redove[k];
+                }
+            }
+
+            int sum = int.MinValue;
+            int maxSum = int.MinValue;
+            int[] index = new int[2];
+            for (int i = 0; i < row - 2; i++)
+            {
+                for (int k = 0; k < col - 2; k++)
+                {
+                    sum = matrix[i, k] + matrix[i, k + 1] + matrix[i, k + 2]
+                     + matrix[i + 1, k] + matrix[i + 1, k + 1] + matrix[i + 1, k + 2]
+                      + matrix[i + 2, k] + matrix[i + 2, k + 1] + matrix[i + 2, k + 2];
+
+                    if (sum > maxSum)
+                    {
+                        maxSum = sum;
+                        index[0] = i;
+                        index[1] = k;
+                    }
+                    sum = int.MinValue;
+                }
+
+
+            }
+            Console.WriteLine($"Sum = {maxSum}");
+            Console.WriteLine($"{matrix[index[0], index[1]]} {matrix[index[0], index[1] + 1]} {matrix[index[0], index[1] + 2]}");
+            Console.WriteLine($"{matrix[index[0] + 1, index[1]]} {matrix[index[0] + 1, index[1] + 1]} {matrix[index[0] + 1, index[1] + 2]}");
+            Console.WriteLine($"{matrix[index[0] + 2, index[1]]} {matrix[index[0] + 2, index[1] + 1]} {matrix[index[0] + 2, index[1] + 2]}");
+
+        }
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad3
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad3()
+        {
+            var rowIcol = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            int row = rowIcol[0];
+            int col = rowIcol[1];
+            if (row < 2 || col < 2)
+            {
+                Console.WriteLine(0);
+                return;
+            }
+
+            string[,] matrix = new string[row, col];
+
+            for (int i = 0; i < row; i++)
+            {
+                var red = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+
+                for (int k = 0; k < col; k++)
+                {
+                    matrix[i, k] = red[k];
+                }
+            }
+            int broi = 0;
+            for (int i = 0; i < row - 1; i++)
+            {
+                for (int k = 0; k < col - 1; k++)
+                {
+                    if (matrix[i, k] == matrix[i, k + 1] && matrix[i, k] == matrix[i + 1, k] && matrix[i, k] == matrix[i + 1, k + 1])
+                    {
+                        broi++;
+                    }
+                }
+            }
+            Console.WriteLine(broi);
+        }
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad2
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad2()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int[,] matrics = new int[n, n];
+
+            for (int row = 0; row < n; row++)
+            {
+                var red = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+
+                for (int col = 0; col < n; col++)
+                {
+                    matrics[row, col] = red[col];
+                }
+            }
+            int sumPurviDiag = 0;
+            int sumVtoriDiagonal = 0;
+
+            for (int i = 0, k = n - 1; i < n && k >= 0; i++, k--)
+            {
+                sumPurviDiag += matrics[i, i];
+                sumVtoriDiagonal += matrics[i, k];
+            }
+            if (sumPurviDiag > sumVtoriDiagonal)
+            {
+                Console.WriteLine(sumPurviDiag - sumVtoriDiagonal);
+            }
+            else if (sumVtoriDiagonal > sumPurviDiag)
+            {
+                Console.WriteLine(sumVtoriDiagonal - sumPurviDiag);
+            }
+            else if (sumVtoriDiagonal == sumPurviDiag)
+            {
+                Console.WriteLine(0);
+            }
+        }
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad1
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad1()
+        {
+            var rowIcol = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            int row = rowIcol[0];
+            int col = rowIcol[1];
+
+            string[,] matrics = new string[row, col];
+
+            string bukvi = "";
+            char sledva6taBukva = 'a';
+            for (char i = 'a'; i < row + 97; i++)
+            {
+                for (char k = sledva6taBukva; k < col + sledva6taBukva; k++)
+                {
+                    bukvi += i;
+                    bukvi += k;
+                    bukvi += i;
+                    matrics[i - 97, k - sledva6taBukva] = bukvi;
+                    bukvi = "";
+                }
+                sledva6taBukva++;
+            }
+            for (int i = 0; i < row; i++)
+            {
+                for (int k = 0; k < col; k++)
+                {
+                    Console.Write($"{matrics[i, k]} ");
+                }
+                Console.WriteLine();
+            }
+        }
+        /// <summary>
+        /// Stack And Queue Exercice      Zad10
+        /// </summary>
+        static void StackAndQueueExerciceZad10()
+        {
+            int comandsCount = int.Parse(Console.ReadLine());
+            var oldVersions = new Stack<string>();
+            oldVersions.Push("");
+
+            var text = new StringBuilder();
+            for (int i = 0; i < comandsCount; i++)
+            {
+                string[] comandInput = Console.ReadLine().Split();
+                int command = int.Parse(comandInput[0]);
+
+                switch (command)
+                {
+                    case 1:
+                        oldVersions.Push(text.ToString());
+                        string newStr = comandInput[1];
+                        text.Append(newStr);
+                        break;
+                    case 2:
+                        oldVersions.Push(text.ToString());
+                        int length = int.Parse(comandInput[1]);
+                        text.Remove(text.Length - length, length);
+                        break;
+                    case 3:
+                        int index = int.Parse(comandInput[1]);
+                        Console.WriteLine(text[index - 1]);
+                        break;
+                    case 4:
+                        text.Clear();
+                        text.Append(oldVersions.Pop());
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Stack And Queue Exercice      Zad7
+        /// </summary>
+        static void StackAndQueueExerciceZad7()
+        {
+            char[] input = Console.ReadLine().ToCharArray();
+
+            if (input.Length % 2 != 0)
+            {
+                Console.WriteLine("NO");
+                Environment.Exit(0);
+            }
+
+            char[] opening = new[] { '(', '[', '{' };
+            char[] closing = new[] { ')', ']', '}' };
+
+            var stack = new Stack<char>();
+            foreach (var element in input)
+            {
+                if (opening.Contains(element))
+                {
+                    stack.Push(element);
+                }
+                else if (closing.Contains(element))
+                {
+                    var lastElement = stack.Pop();
+                    int openingIndex = Array.IndexOf(opening, lastElement);
+
+                    int closeIndex = Array.IndexOf(closing, element);
+
+                    if (openingIndex != closeIndex)
+                    {
+                        Console.WriteLine("NO");
+                        Environment.Exit(0);
+                    }
+                }
+            }
+            if (stack.Any())
+            {
+                Console.WriteLine("NO");
+            }
+            else
+            {
+                Console.WriteLine("YES");
+            }
+        }
+
+        /// <summary>
+        /// Stack And Queue Exercice      Zad6
+        /// </summary>
+        static void StackAndQueueExerciceZad6()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            var queue = new Queue<int[]>();
+
+            for (int i = 0; i < n; i++)
+            {
+                var pump = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                queue.Enqueue(pump);
+            }
+            for (int currentStart = 0; currentStart < n - 1; currentStart++)
+            {
+                int fuel = 0;
+                bool isSolution = true;
+                for (int pumpsPassed = 0; pumpsPassed < n; pumpsPassed++)
+                {
+                    var currentPump = queue.Dequeue();
+                    var pumpFuel = currentPump[0];
+                    int nextPumpDistans = currentPump[1];
+
+                    queue.Enqueue(currentPump);
+
+                    fuel += pumpFuel - nextPumpDistans;
+                    if (fuel < 0)
+                    {
+                        currentStart += pumpsPassed;
+                        isSolution = false;
+                        break;
+                    }
+                }
+
+                if (isSolution)
+                {
+                    Console.WriteLine(currentStart);
+                    Environment.Exit(0);
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Stack And Queue Exercice      Zad5
+        /// </summary>
+        static void StackAndQueueExerciceZad5()
+        {
+            long n = long.Parse(Console.ReadLine());
+            var queue = new Queue<long>();
+            var arr = new List<long>();
+            for (int i = 0; i < 17; i++)
+            {
+                if (i != 16)
+                {
+                    if (i == 0)
+                    {
+                        arr.Add(n);
+                        queue.Enqueue(n);
+                    }
+
+                    arr.Add(n + 1);
+                    arr.Add(2 * n + 1);
+                    arr.Add(n + 2);
+
+                    queue.Enqueue(n + 1);
+                    queue.Enqueue(2 * n + 1);
+                    queue.Enqueue(n + 2);
+                    if (i == 0)
+                    {
+                        queue.Dequeue();
+                    }
+                    n = queue.Dequeue();
+                }
+                else
+                {
+                    //arr.Add(n);
+                    arr.Add(n + 1);
+                    queue.Enqueue(n);
+                    //queue.Enqueue(n + 1);
+                }
+            }
+            foreach (var ar in arr)
+            {
+                Console.Write($"{ar} ");
+            }
+        }
+
+        /// <summary>
+        /// Stack And Queue Exercice      Zad4
+        /// </summary>
+        static void StackAndQueueExerciceZad4()
+        {
+            var vh = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            var chisla = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            var queue = new Queue<int>(chisla);
+
+            int brElementiVSteka = vh[0];
+            int broiPremahvaniElementi = vh[1];
+            int tursenElement = vh[2];
+
+            if (broiPremahvaniElementi >= brElementiVSteka)
+            {
+                queue.Clear();
+                Console.WriteLine(0);
+                return;
+            }
+
+            for (int i = 0; i < broiPremahvaniElementi; i++)
+            {
+                queue.Dequeue();
+            }
+            if (queue.Contains(tursenElement))
+            {
+                Console.WriteLine("true");
+            }
+            else
+            {
+                Console.WriteLine($"{queue.Min()}");
+            }
+        }
+
+        /// <summary>
+        /// Stack And Queue Exercice      Zad3         75/100
+        /// </summary>
+        static void StackAndQueueExerciceZad3()
+        {
+            int comandCount = int.Parse(Console.ReadLine());
+
+            var stack = new Stack<int>();
+            var maxStack = new Stack<int>();
+
+            maxStack.Push(int.MinValue);
+            for (int i = 0; i < comandCount; i++)
+            {
+                var comand = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+                switch (comand[0])
+                {
+                    case 1:
+                        var element = comand[1];
+                        stack.Push(element);
+                        if (element >= maxStack.Peek())
+                        {
+                            maxStack.Push(element);
+                        }
+                        break;
+                    case 2:
+                        var poppedElement = stack.Pop();
+                        if (maxStack.Peek() == poppedElement)
+                        {
+                            maxStack.Pop();
+                        }
+                        break;
+                    case 3:
+                        int maxElement = maxStack.Peek();
+                        Console.WriteLine(maxElement);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Stack And Queue Exercice      Zad2
+        /// </summary>
+        static void StackAndQueueExerciceZad2()
+        {
+            var vh = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            var chisla = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            var stack = new Stack<int>(chisla);
+
+            int brElementiVSteka = vh[0];
+            int broiPremahvaniElementi = vh[1];
+            int tursenElement = vh[2];
+
+            if (broiPremahvaniElementi >= brElementiVSteka)
+            {
+                stack.Clear();
+                Console.WriteLine(0);
+                return;
+            }
+
+            for (int i = 0; i < broiPremahvaniElementi; i++)
+            {
+                stack.Pop();
+            }
+            if (stack.Contains(tursenElement))
+            {
+                Console.WriteLine("true");
+            }
+            else
+            {
+                Console.WriteLine($"{stack.Min()}");
+            }
+        }
+
+        /// <summary>
+        /// Stack And Queue Exercice      Zad1
+        /// </summary>
+        static void StackAndQueueExerciceZad1()
+        {
+            var input = Console.ReadLine();
+
+            if (input.Length > 0)
+            {
+                var inp = input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                var stack = new Stack<int>(inp);
+                foreach (var s in stack)
+                {
+                    Console.Write($"{s} ");
+                }
+            }
+            else
+            {
+                return;
+            }
+            Console.WriteLine();
+        }
+        /// <summary>
+        /// Stacks And Queues Lab    Zad6
+        /// </summary>
+        static void StacksAndQueuesLabZad6()
+        {
+            var carsPergreenLight = int.Parse(Console.ReadLine());
+
+            var input = Console.ReadLine();
+            var carsQueue = new Queue<string>();
+            int carThatPassedTotal = 0;
+            while (input != "end")
+            {
+                if (input == "green")
+                {
+                    var carsThatCanPass = Math.Min(carsQueue.Count, carsPergreenLight);
+                    for (int counter = 0; counter < carsThatCanPass; counter++)
+                    {
+                        Console.WriteLine($"{carsQueue.Dequeue()} passed!");
+                        carThatPassedTotal++;
+                    }
+                }
+                else
+                {
+                    carsQueue.Enqueue(input);
+                }
+
+                input = Console.ReadLine();
+            }
+            Console.WriteLine($"{carThatPassedTotal} cars passed the crossroads.");
+        }
+
+        /// <summary>
+        /// Stacks And Queues Lab    Zad5
+        /// </summary>
+        static void StacksAndQueuesLabZad5()
+        {
+            var children = Console.ReadLine().Split(' ');
+            var tossLimit = int.Parse(Console.ReadLine());
+
+            var queue = new Queue<string>(children);
+            while (queue.Count != 1)
+            {
+                for (int tossCounter = 1; tossCounter < tossLimit; tossCounter++)
+                {
+                    queue.Enqueue(queue.Dequeue());
+                }
+                Console.WriteLine($"Removed {queue.Dequeue()}");
+            }
+            Console.WriteLine($"Last is {queue.Dequeue()}");
+        }
+
+        /// <summary>
+        /// Stacks And Queues Lab    Zad4
+        /// </summary>
+        static void StacksAndQueuesLabZad4()
+        {
+            var input = Console.ReadLine();
+            var stackOpenBracketIndexes = new Stack<int>();
+            for (int counter = 0; counter < input.Length; counter++)
+            {
+                if (input[counter] == '(')
+                {
+                    stackOpenBracketIndexes.Push(counter);
+                }
+                if (input[counter] == ')')
+                {
+                    var openBracketIndex = stackOpenBracketIndexes.Pop();
+                    var length = counter - openBracketIndex + 1;
+                    Console.WriteLine(input.Substring(openBracketIndex, length));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Strukturi Ot Danni List and DS Complexity-Exercises  Zada4a  3      100/100
+        /// </summary>
+        static void StrukturiOtDanniLec3Zad3()
+        {
+            var chisla = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).
+                Select(int.Parse).ToArray();
+            bool ima = false;
+            int broi = 1;
+            int maxBroi = 0;
+            int chislo = chisla[0];
+            for (int i = 0; i < chisla.Length - 1; i++)
+            {
+                if (chisla[i] == chisla[i + 1])
+                {
+                    broi++;
+                    if (broi > maxBroi)
+                    {
+                        maxBroi = broi;
+                        chislo = chisla[i];
+
+                    }
+                    ima = true;
+                }
+                else
+                {
+                    broi = 1;
+                }
+            }
+            if (ima == false)
+            {
+                Console.WriteLine(chislo);
+            }
+            for (int i = 0; i < maxBroi; i++)
+            {
+                Console.Write($"{chislo} ");
+            }
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Strukturi Ot Danni List and DS Complexity-Exercises  Zada4a  1      100/100
+        /// </summary>
+        static void StrukturiOtDanniLec3Zad1()
+        {
+            var chisla = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).
+                Select(int.Parse).ToArray();
+            int sum = 0;
+            if (chisla.Length == 0)
+            {
+                Console.WriteLine($"Sum=0; Average=0.00");
+            }
+            else
+            {
+                for (int i = 0; i < chisla.Length; i++)
+                {
+                    sum += chisla[i];
+                }
+                Console.WriteLine($"Sum={sum}; Average={(decimal)sum / (decimal)chisla.Length:f2}");
+            }
+        }
+
+        /// <summary>
+        /// EXTENDED Dictionary Zad 1         90/100
+        /// </summary>
+        static void Zada4a1DictionaryEXTENDED()
+        {
+            Dictionary<string, Dictionary<string, long>> reserv = new Dictionary<string, Dictionary<string, long>>();
+            Dictionary<string, Dictionary<string, long>> dic = new Dictionary<string, Dictionary<string, long>>();
+            Dictionary<string, Dictionary<string, long>> kraino = new Dictionary<string, Dictionary<string, long>>();
+            do
+            {
+                var vhod = Console.ReadLine().Split(new char[] { ' ', '-', '>', '|' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToArray();
+                if (vhod.Length == 1 && vhod[0] == "thetinggoesskrra")
+                {
+                    break;
+                }
+                if (vhod.Length == 1)
+                {
+                    if (!dic.ContainsKey(vhod[0]))
+                    {
+                        dic.Add(vhod[0], new Dictionary<string, long>());
+                    }
+                }
+                else if (vhod.Length > 1)
+                {
+                    if (!reserv.ContainsKey(vhod[2]))
+                    {
+                        reserv.Add(vhod[2], new Dictionary<string, long>());
+                    }
+                    if (reserv.ContainsKey(vhod[2]))
+                    {
+                        reserv[vhod[2]].Add(vhod[0], long.Parse(vhod[1]));
+                    }
+
+                }
+
+            } while (true);
+
+            foreach (var d in dic.Keys)
+            {
+                foreach (var r in reserv)
+                {
+                    if (d == r.Key)
+                    {
+                        kraino.Add(d, r.Value);
+                        //dic[d] = r.Value;
+                    }
+                }
+            }
+
+            long sum = 0;
+            long maxSum = 0;
+            string maxKliu4 = "";
+
+            foreach (var d in kraino)
+            {
+                foreach (var di in d.Value)
+                {
+                    sum += di.Value;
+                }
+                if (sum > maxSum)
+                {
+                    maxSum = sum;
+                    maxKliu4 = d.Key;
+                    sum = 0;
+                }
+            }
+            Console.WriteLine($"Data Set: {maxKliu4}, Total Size: {maxSum}");
+            foreach (var vv in kraino)
+            {
+                if (vv.Key == maxKliu4)
+                {
+                    foreach (var i in vv.Value)
+                    {
+                        Console.WriteLine($"$.{i.Key}");
+                    }
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// EXTENDED ARR i Lists Zad 4         100/100
+        /// </summary>
+        static void Zad4ArrayAndListsEXTENDED()
+        {
+            var p4eli = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+               .Select(long.Parse)
+               .ToList();
+
+            var hornet = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(long.Parse)
+                .ToList();
+
+
+            //for (int k = 0; k < hornet.Count; k++)
+            //{
+
+
+            for (int i = 0; i < p4eli.Count; i++)
+            {
+                long powerOfHornet = hornet.Sum(x => x);
+                if (p4eli[i] < powerOfHornet)
+                {
+                    p4eli.RemoveAt(i);
+                    i--;
+                }
+                else
+                {
+                    p4eli[i] = p4eli[i] - powerOfHornet;
+                    if (p4eli[i] == 0)
+                    {
+                        p4eli.RemoveAt(i);
+                        i--;
+                    }
+                    if (hornet.Count > 0)
+                    {
+                        hornet.RemoveAt(0);
+                    }
+
+
+                }
+            }
+            //}
+            if (p4eli.Count > 0)
+            {
+                foreach (var p in p4eli)
+                {
+                    Console.Write(p + " ");
+                }
+            }
+            else
+            {
+                foreach (var h in hornet)
+                {
+                    Console.Write(h + " ");
+                }
+            }
+        }
+
+        /// <summary>
+        /// EXTENDED ARR i Lists Zad 3         70/100
+        /// </summary>
+        static void Zad3ArrayAndListsEXTENDED()
+        {
+            var nums = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(long.Parse)
+                .ToList();
+            List<long> list = new List<long>();
+            do
+            {
+                int index = int.Parse(Console.ReadLine());
+
+                if (index < 0)
+                {
+                    index = 0;
+                    nums[0] = nums[nums.Count - 1];
+                    list.Add(nums[index]);
+                    if (nums.Count - 1 != 0)
+                    {
+                        for (int i = 0; i < nums.Count; i++)
+                        {
+                            if (nums[i] > nums[index])
+                            {
+                                nums[i] = nums[i] - nums[index];
+                            }
+                            else if (nums[i] <= nums[index])
+                            {
+                                nums[i] = nums[i] + nums[index];
+                            }
+                        }
+                    }
+
+                }
+                else if (index > nums.Count - 1)
+                {
+                    index = nums.Count - 1;
+                    nums[nums.Count - 1] = nums[0];
+                    list.Add(nums[index]);
+                    if (nums.Count - 1 != 0)
+                    {
+                        for (int i = 0; i < nums.Count; i++)
+                        {
+                            if (nums[i] > nums[index])
+                            {
+                                nums[i] = nums[i] - nums[index];
+                            }
+                            else if (nums[i] <= nums[index])
+                            {
+                                nums[i] = nums[i] + nums[index];
+                            }
+                        }
+                    }
+
+
+                }
+
+                else if (index >= 0 && index <= nums.Count - 1)
+                {
+                    list.Add(nums[index]);
+                    for (int i = 0; i < nums.Count; i++)
+                    {
+                        if (i != index && nums[i] > nums[index])
+                        {
+                            nums[i] = nums[i] - nums[index];
+                        }
+                        else if (i != index && nums[i] <= nums[index])
+                        {
+                            nums[i] = nums[i] + nums[index];
+                        }
+                    }
+                    nums.RemoveAt(index);
+                }
+
+
+
+            } while (nums.Count != 0);
+            long sum = 0;
+            foreach (var l in list)
+            {
+                Console.Write(l + " ");
+                sum += l;
+            }
+            Console.WriteLine(sum);
+        }
+
+        /// <summary>
+        /// EXTENDED ARR i Lists Zad 2          100/100
+        /// </summary>
+        static void Zad2ArrayAndListsEXTENDED()
+        {
+            var nums = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+            int poziciq = int.Parse(Console.ReadLine());
+            var vhod = Console.ReadLine();
+
+            int power = 1;
+            while (vhod != "Supernova")
+            {
+                var mestene = vhod.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToArray();
+
+                string posoka = mestene[0];
+                int broiStupki = int.Parse(mestene[1]);
+
+
+
+                if (posoka == "left")
+                {
+                    for (int i = 1; i <= broiStupki; i++)
+                    {
+                        poziciq--;
+                        if (poziciq < 0)
+                        {
+                            poziciq = nums.Count - 1;
+                            power++;
+                        }
+                        if (poziciq > nums.Count - 1)
+                        {
+                            poziciq = 0;
+                            power++;
+                        }
+                        nums[poziciq] = nums[poziciq] - power;
+
+
+                    }
+                }
+
+                if (posoka == "right")
+                {
+                    for (int i = 1; i <= broiStupki; i++)
+                    {
+                        poziciq++;
+                        if (poziciq < 0)
+                        {
+                            poziciq = nums.Count - 1;
+                            power++;
+                        }
+                        if (poziciq > nums.Count - 1)
+                        {
+                            poziciq = 0;
+                            power++;
+                        }
+                        nums[poziciq] = nums[poziciq] - power;
+
+
+                    }
+                }
+                vhod = Console.ReadLine();
+            }
+            foreach (var n in nums)
+            {
+                Console.Write(n + " ");
+            }
+        }
+
+        /// <summary>
+        /// EXTENDED ARR i Lists Zad 1          70/100
+        /// </summary>
+        static void Zad1ArrayAndListsEXTENDED()
+        {
+            var dumi = Console.ReadLine()
+                  .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            do
+            {
+                bool izlez = false;
+                String slivane = "";
+                var operaciq = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+                if (operaciq[0] == "3:1")
+                {
+                    break;
+                }
+                string margeOrDiv = operaciq[0];
+                int purvoChislo = int.Parse(operaciq[1]);
+                int vtoroChislo = int.Parse(operaciq[2]);
+
+
+                if (margeOrDiv == "merge")
+                {
+                    //if (purvoChislo > dumi.Count - 1)
+                    //{
+                    //    izlez = true;
+                    //}
+
+                    if (purvoChislo < vtoroChislo)
+                    {
+                        if (vtoroChislo > dumi.Count - 1 || vtoroChislo < 0)
+                        {
+                            vtoroChislo = dumi.Count - 1;
+                        }
+                        if (purvoChislo < 0 || purvoChislo > dumi.Count - 1)
+                        {
+                            purvoChislo = 0;
+                        }
+
+
+                        for (int i = purvoChislo; i <= vtoroChislo; i++)
+                        {
+                            slivane += dumi[i];
+                        }
+                        for (int i = 0; i <= vtoroChislo - purvoChislo; i++)
+                        {
+                            dumi.RemoveAt(purvoChislo);
+                        }
+                        dumi.Insert(purvoChislo, slivane);
+                    }
+
+
+
+
+                }
+                if (margeOrDiv == "divide" && dumi.Count > 0)
+                {
+                    string ne6to = dumi[purvoChislo];
+                    int naKolkoDelim = 1;
+                    if (vtoroChislo != 0)
+                    {
+                        naKolkoDelim = vtoroChislo;
+                    }
+
+                    if (naKolkoDelim > ne6to.Length)
+                    {
+                        naKolkoDelim = ne6to.Length;
+                    }
+
+                    int broiBukvi = ne6to.Length / naKolkoDelim;
+
+                    string vmukni = "";
+                    int m = 0;
+
+
+                    if (ne6to.Length % naKolkoDelim == 0)
+                    {
+                        for (int i = 0; i < naKolkoDelim; i++)
+                        {
+                            for (int k = 0; k < broiBukvi; k++)
+                            {
+                                vmukni += ne6to[m];
+                                m++;
+                            }
+                            vmukni += " ";
+                        }
+                    }
+                    if (ne6to.Length % naKolkoDelim != 0)
+                    {
+                        for (int i = 0; i < naKolkoDelim; i++)
+                        {
+                            for (int k = 0; k < broiBukvi; k++)
+                            {
+                                vmukni += ne6to[m];
+                                m++;
+                            }
+
+                            if (i == naKolkoDelim - 1)
+                            {
+                                int dobavi = ne6to.Length % naKolkoDelim;
+                                for (int r = dobavi; r > 0; r--)
+                                {
+                                    vmukni += ne6to[ne6to.Length - r];
+                                }
+
+                            }
+                            vmukni += " ";
+                        }
+                    }
+                    dumi.RemoveAt(purvoChislo);
+                    dumi.Insert(purvoChislo, vmukni);
+
+                }
+
+            } while (true);
+
+            foreach (var d in dumi)
+            {
+                Console.Write(d + " ");
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static void DrunDrun()
+        {
+            string a = null;
+
+            var b = a?.FirstOrDefault();
+
+            Dictionary<string, Dictionary<string, int>> dic = new Dictionary<string, Dictionary<string, int>>();
+            Dictionary<string, Dictionary<string, int>> dic1 = new Dictionary<string, Dictionary<string, int>>();
+            string dateSet = "";
+            string dateKey = "";
+            int dateSize = 0;
+            do
+            {
+
+                var vhod = Console.ReadLine()
+                .Split(new char[] { ' ', '|', '-', '>' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToArray();
+                if (vhod[0] == "thetinggoesskrra")
+                {
+                    break;
+                }
+
+                if (vhod.Length == 1)
+                {
+                    dateSet = vhod[0];
+                    if (!dic.ContainsKey(vhod[0]))
+                    {
+                        dic.Add(vhod[0], new Dictionary<string, int>());
+
+                        //if (dic1.ContainsKey(dateSet))
+                        //{
+                        //
+                        //    dic[dateSet] = dic1[dateSet];
+                        //}
+
+                    }
+                }
+
+                else if (vhod.Length == 3)
+                {
+                    dateKey = vhod[0];
+                    dateSize = int.Parse(vhod[1]);
+                    dateSet = vhod[2];
+
+                    if (!dic.ContainsKey(vhod[2]))
+                    {
+                        // dic1.Add(vhod[0], new Dictionary<string, int>());
+                        //   dic1[vhod[0]].Add(vhod[2], int.Parse(vhod[1]));
+                    }
+                    else if (dic.ContainsKey(vhod[2]))
+                    {
+                        dic[vhod[2]].Add(vhod[0], int.Parse(vhod[1]));
+                    }
+
+                }
+            } while (true);
+            foreach (var d in dic1)
+            {
+                if (dic.ContainsKey(d.Key))
+                {
+                    foreach (var di in d.Value)
+                    {
+                        dic[d.Key].Add(di.Key, di.Value);
+                    }
+                }
+
+            }
+            int br = 1;
+            int ob6to = 0;
+            int brCount = 0;
+            int nGBC = 0;
+            Dictionary<string, Dictionary<string, int>> p = new Dictionary<string, Dictionary<string, int>>();
+            foreach (var d in dic.OrderByDescending(x => x.Value.Count))
+            {
+                //brCount = d.Key.Count();
+                //if (brCount>nGBC)
+                //{
+                //    p.
+                //}
+                Console.Write($"Data Set: {d.Key}, Total Size: ");
+                foreach (var di in d.Value)
+                {
+                    ob6to += di.Value;
+                }
+                Console.WriteLine(ob6to);
+                foreach (var dd in d.Value)
+                {
+                    Console.WriteLine($"$.{dd.Key}");
+                }
+                //br++;
+                //if (br>1)
+                //{
+                //    break;
+                //}
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        static void IzpitZad2()
+        {
+            var vhod = Console.ReadLine()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+            List<string> chastii = new List<string>();
+            StringBuilder duma = new StringBuilder();
+            List<string> result = new List<string>();
+            do
+            {
+                var vh = Console.ReadLine();
+                if (vh == "3:1")
+                {
+                    break;
+                }
+                var mOrDivide = vh.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToArray();
+                int purviIndex = int.Parse(mOrDivide[1]);
+                int vtoriIndex = int.Parse(mOrDivide[2]);
+
+                if (mOrDivide[0] == "merge" && purviIndex < vhod.Count - 1)
+                {
+                    if (vtoriIndex < purviIndex)
+                    {
+                        int p = vtoriIndex; ;
+                        vtoriIndex = purviIndex;
+                        purviIndex = p;
+                    }
+                    string strMarge = "";
+                    if (purviIndex < 0)
+                    {
+                        purviIndex = 0;
+                    }
+                    if (vtoriIndex > vhod.Count - 1)
+                    {
+                        vtoriIndex = vhod.Count - 1;
+                    }
+                    for (int i = purviIndex; i <= vtoriIndex; i++)
+                    {
+                        strMarge += vhod[i];
+                    }
+                    vhod.RemoveRange(purviIndex, vtoriIndex - purviIndex + 1);
+                    vhod.Insert(purviIndex, strMarge);
+                    result = new List<string>(vhod);
+                }
+                else if (mOrDivide[0] == "divide")
+                {
+                    string chasti = "";
+                    string dDivide = vhod[purviIndex].ToString();
+                    int kolkoElementa = dDivide.Length / vtoriIndex;
+
+                    int brelementi = kolkoElementa;
+                    int dL = dDivide.Length - 1;
+                    int count = 0;
+                    if (dDivide.Length % vtoriIndex == 0)
+                    {
+
+
+                        for (int i = 0; i < dDivide.Length; i++)
+                        {
+                            chasti += dDivide[i];
+                            count++;
+                            if (count == brelementi)
+                            {
+                                chastii.Add(chasti);
+                                chasti = "";
+
+                                //kolkoElementa += kolkoElementa;
+                                brelementi += kolkoElementa;
+                            }
+                        }
+
+
+                    }
+                    else if (dDivide.Length % vtoriIndex == 1)
+                    {
+
+                        for (int i = 0; i < dDivide.Length; i++)
+                        {
+                            chasti += dDivide[i];
+                            count++;
+                            if (count == brelementi)
+                            {
+                                chastii.Add(chasti);
+                                chasti = "";
+                                brelementi += kolkoElementa;
+                            }
+                        }
+
+                        string poslElement = chastii[chastii.Count - 1];
+                        poslElement += dDivide[dDivide.Length - 1];
+                        chastii.RemoveAt(chastii.Count - 1);
+                        chastii.Insert(chastii.Count - 1, poslElement);
+                    }
+                    vhod.RemoveAt(purviIndex);
+                    vhod.InsertRange(purviIndex, chastii);
+                    vhod.ToList();
+                    result = new List<string>(vhod);
+                }
+
+            } while (true);
+            foreach (var r in result)
+            {
+                Console.Write($"{r} ");
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        static void IzpitZad1()
+        {
+            byte n = byte.Parse(Console.ReadLine());
+            byte securityk = byte.Parse(Console.ReadLine());
+            int securityT = 1;
+
+            List<string> emails = new List<string>();
+            decimal totalLoss = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                var vhod = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToArray();
+                string email = vhod[0];
+                long pose6teniq = long.Parse(vhod[1]);
+                decimal cena = decimal.Parse(vhod[2]);
+
+                emails.Add(email);
+
+                decimal syteLos = (decimal)pose6teniq * cena;
+                totalLoss += syteLos;
+            }
+            for (int i = 0; i < n; i++)
+            {
+                securityT *= securityk;
+            }
+
+            foreach (var e in emails)
+            {
+                Console.WriteLine(e);
+            }
+            Console.WriteLine($"Total Loss: {totalLoss:f20}");
+            Console.WriteLine($"Security Token: {securityT}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static void Ne6to()
         {
             Dictionary<string, Dictionary<string, int>> dic = new Dictionary<string, Dictionary<string, int>>();
 
@@ -70,7 +1711,6 @@ namespace NikoletaSolution
                 }
             }
         }
-
         /// <summary>
         /// IZPIT 30 April 2017      Zada4a 3                         100/100
         /// </summary>
