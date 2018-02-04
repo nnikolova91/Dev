@@ -19,6 +19,7 @@ namespace Streams
             {
                 Directory.CreateDirectory(destinationDirectory);
             }
+
             Slice(purvona4File, destinationDirectory, parts);
         }
 
@@ -33,7 +34,7 @@ namespace Streams
                     {
                         size += (int)(fsSourse.Length % parts);
                     }
-                    
+
                     byte[] bytes = new byte[size];
                     int numBytesToRead = size;
                     int numBytesRead = 0;
@@ -57,7 +58,7 @@ namespace Streams
                         fsNew.Write(bytes, 0, numBytesToRead);
                     }
                 }
-            }                
+            }
         }
 
         private static void StreamsZad4()
