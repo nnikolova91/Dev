@@ -4,8 +4,6 @@ using System.Linq;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Text;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace NikoletaSolution
 {
@@ -14,7 +12,567 @@ namespace NikoletaSolution
         static void Main()
         {
             var vhod = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(long.Parse).ToArray();
+            var rows = vhod[0];
+            var columns = vhod[1];
+
+            List<List<int>> jagged = new List<List<int>>();
+
+            int broi = 1;
+            for (int r = 0; r < rows; r++)
+            {
+                jagged.Add(new List<int>());
+
+                for (long c = 0; c < columns; c++)
+                {
+                    jagged[r].Add(broi++);
+                }
+            }
+
+            do
+            {
+                var v = Console.ReadLine().ToLower();
+                if (v == "nuke it from orbit")
+                {
+                    break;
+                }
+                var vh = v.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse).ToArray();
+                long row = vh[0];
+                long col = vh[1];
+                long radius = vh[2];
+
+                if (radius >= 0)
+                {
+                    //bomb row
+                    if (row >= 0 && jagged.Count > row)
+                    {
+                        for (long i = col - radius; i <= col + radius; i++)
+                        {
+                            if (i >= 0 && jagged.Count > row && jagged[(int)row].Count > i)
+                            {
+                                jagged[(int)row][(int)i] = 0;
+                            }
+                        }
+                    }
+
+                    //bomb col
+                    if (col >= 0)
+                    {
+                        for (long i = row - radius; i <= row + radius; i++)
+                        {
+                            if (i >= 0 && jagged.Count > i && jagged[(int)i].Count > col)
+                            {
+                                jagged[(int)i][(int)col] = 0;
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < jagged.Count; i++)
+                    {
+                        jagged[i] = jagged[i].Where(num => num != 0).ToList();
+                    }
+
+                    jagged = jagged.Where(list => list.Count > 0).ToList();
+                }
+            } while (true);
+
+            foreach (var list in jagged.Where(row => row.Count > 0))
+            {
+                Console.WriteLine(string.Join(" ", list));
+            }
+        }
+        
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad10
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad10()
+        {
+            double demage = double.Parse(Console.ReadLine());
+            int to4kiIgra4 = 18500;
+            double to4kiHeigan = 3000000;
+            int[] moetoMqsto = new int[2] { 7, 7 };
+
+            bool udyr = false;
+            do
+            {
+                var vhod = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+                int redNaUdar = int.Parse(vhod[1]);
+                int colNaUdar = int.Parse(vhod[2]);
+                string imeUdyr = vhod[0];
+
+                int na4Red = redNaUdar - 1;
+                int kraiRed = redNaUdar + 1;
+                int na4Col = colNaUdar - 1;
+                int kraiCol = colNaUdar + 1;
+
+                if (na4Red < 0)
+                {
+                    na4Red = 0;
+                }
+                if (na4Col < 0)
+                {
+                    na4Col = 0;
+                }
+                if (kraiRed > 14)
+                {
+                    kraiRed = 14;
+                }
+                if (kraiCol > 14)
+                {
+                    kraiCol = 14;
+                }
+
+                for (int r = na4Red; r < kraiRed; r++)
+                {
+                    for (int c = na4Col; c < kraiCol; c++)
+                    {
+                        if (r == moetoMqsto[0] && c == moetoMqsto[1])
+                        {
+
+                        }
+                    }
+                }
+                //int na4Red = redNaUdar - 1;
+                //int kraiRed = redNaUdar + 1;
+                //int na4Col = colNaUdar - 1;
+                //int kraiCol = colNaUdar + 1;
+                //if (redNaUdar >= 0 && redNaUdar <= 14 && colNaUdar >= 0 && colNaUdar <= 14)
+                //{
+                //    if (na4Red < 0)
+                //    {
+                //        na4Red = 0;
+                //    }
+                //    if (na4Col < 0)
+                //    {
+                //        na4Col = 0;
+                //    }
+                //    if (kraiRed > 14)
+                //    {
+                //        kraiRed = 14;
+                //    }
+                //    if (kraiCol > 14)
+                //    {
+                //        kraiCol = 14;
+                //    }
+                //    ///
+                //
+                //    if (redNaUdar == moetoMqsto[0] && colNaUdar == moetoMqsto[1])
+                //    {
+                //
+                //
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //            imeUdyr = "Plague Cloud";
+                //            udyr = false;
+                //        }
+                //
+                //        if (imeUdyr == "Eruption")
+                //        {
+                //            to4kiIgra4 -= 6000;
+                //        }
+                //        else
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //            udyr = true;
+                //        }
+                //
+                //    }
+                //    else if (moetoMqsto[0] == na4Red && moetoMqsto[1] >= na4Col && moetoMqsto[1] <= kraiCol)
+                //    {
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //        }
+                //        if (moetoMqsto[0] - 1 >= 0)
+                //        {
+                //            moetoMqsto[0] = moetoMqsto[0] - 1;
+                //        }
+                //
+                //        else
+                //        {
+                //
+                //            if (imeUdyr == "Cloud")
+                //            {
+                //                to4kiIgra4 -= 3500;
+                //                imeUdyr = "Plague Cloud";
+                //                udyr = false;
+                //            }
+                //            else if (imeUdyr == "Eruption")
+                //            {
+                //                to4kiIgra4 -= 6000;
+                //            }
+                //
+                //        }
+                //
+                //    }
+                //    else if (moetoMqsto[1] == kraiCol && moetoMqsto[0] >= na4Red && moetoMqsto[0] <= kraiRed)
+                //    {
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //        }
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //            udyr = false;
+                //        }
+                //        if (moetoMqsto[1] + 1 <= 14)
+                //        {
+                //            moetoMqsto[1] = moetoMqsto[1] + 1;
+                //        }
+                //        else
+                //        {
+                //            if (imeUdyr == "Cloud")
+                //            {
+                //                to4kiIgra4 -= 3500;
+                //                imeUdyr = "Plague Cloud";
+                //                udyr = false;
+                //            }
+                //            else if (imeUdyr == "Eruption")
+                //            {
+                //                to4kiIgra4 -= 6000;
+                //            }
+                //        }
+                //    }
+                //    else if (moetoMqsto[0] == kraiRed && moetoMqsto[1] >= na4Col && moetoMqsto[1] <= kraiCol)
+                //    {
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //        }
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //            udyr = false;
+                //        }
+                //        if (moetoMqsto[0] + 1 <= 14)
+                //        {
+                //            moetoMqsto[0] = moetoMqsto[0] + 1;
+                //        }
+                //        else
+                //        {
+                //            if (imeUdyr == "Cloud")
+                //            {
+                //                to4kiIgra4 -= 3500;
+                //                imeUdyr = "Plague Cloud";
+                //                udyr = false;
+                //            }
+                //            else if (imeUdyr == "Eruption")
+                //            {
+                //                to4kiIgra4 -= 6000;
+                //            }
+                //        }
+                //    }
+                //    else if (moetoMqsto[1] == na4Col && moetoMqsto[0] >= na4Red && moetoMqsto[0] <= kraiRed)
+                //    {
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //        }
+                //        if (udyr == true)
+                //        {
+                //            to4kiIgra4 -= 3500;
+                //            udyr = false;
+                //        }
+                //        if (moetoMqsto[1] - 1 >= 0)
+                //        {
+                //            moetoMqsto[1] = moetoMqsto[1] - 1;
+                //        }
+                //        else
+                //        {
+                //            if (imeUdyr == "Cloud")
+                //            {
+                //                to4kiIgra4 -= 3500;
+                //                imeUdyr = "Plague Cloud";
+                //                udyr = false;
+                //            }
+                //            else if (imeUdyr == "Eruption")
+                //            {
+                //                to4kiIgra4 -= 6000;
+                //            }
+                //        }
+                //    }
+                //}
+
+                to4kiHeigan -= demage;
+                if (to4kiIgra4 <= 0)
+                {
+                    Console.WriteLine($"Heigan: {to4kiHeigan:f2}");
+                    Console.WriteLine($"Player: Killed by {imeUdyr}");
+                    Console.WriteLine($"Final position: {moetoMqsto[0]}, {moetoMqsto[1]}");
+                    break;
+                }
+                else if (to4kiHeigan <= 0)
+                {
+                    Console.WriteLine($"Heigan: Defeated!");
+                    Console.WriteLine($"Player: {to4kiIgra4}");
+                    Console.WriteLine($"Final position: {moetoMqsto[0]}, {moetoMqsto[1]}");
+                    break;
+                }
+
+
+            } while (true);
+        }
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad9
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad9()
+        {
+            var vhod = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+            var rows = vhod[0];
+            var columns = vhod[1];
+
+            int[,] matrix = new int[rows, columns];
+            int broi = 1;
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < columns; c++)
+                {
+                    matrix[r, c] = broi;
+                    broi++;
+                }
+            }
+
+            do
+            {
+                var v = Console.ReadLine();
+                if (v == "Nuke it from orbit")
+                {
+                    break;
+                }
+                var vh = v.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+                int row = vh[0];
+                int col = vh[1];
+                int radius = vh[2];
+
+                //naGore
+                if (row - radius < 0)
+                {
+                    radius = row;
+                }
+                for (int r = row; r >= row - radius; r--)
+                {
+                    matrix[r, col] = ' ';
+                }
+                radius = vh[2];
+
+                //naDolu
+                if (row + radius > rows - 1)
+                {
+                    radius = rows - 1 - row;
+                }
+                for (int r = row; r <= row + radius; r++)
+                {
+                    matrix[r, col] = ' ';
+                }
+                radius = vh[2];
+
+                //naDqsno
+                if (col + radius > columns - 1)
+                {
+                    radius = columns - 1 - col;
+                }
+                for (int c = col; c <= col + radius; c++)
+                {
+                    matrix[row, c] = ' ';
+                }
+                radius = vh[2];
+
+                //naLqvo
+                if (col - radius < 0)
+                {
+                    radius = col;
+                }
+                for (int c = col; c >= col - radius; c--)
+                {
+                    matrix[row, c] = ' ';
+                }
+                //////////////////////////
+                int[,] matrix1 = new int[rows, columns];
+
+                for (int r = 0; r < rows; r++)
+                {
+                    int iterM1 = 0;
+                    for (int c = 0; c < columns; c++)
+                    {
+                        if (matrix[r, c] != ' ')
+                        {
+                            matrix1[r, iterM1] = matrix[r, c];
+                            iterM1++;
+                        }
+                    }
+                }
+                matrix = matrix1;
+            } while (true);
+
+            int[][] jagArr = new int[rows][];
+
+            var list = new List<int>();
+
+            for (int r = 0; r < rows; r++)
+            {
+                //int indexJag = 0;
+                for (int c = 0; c < columns; c++)
+                {
+                    if (matrix[r, c] != 0)
+                    {
+                        list.Add(matrix[r, c]);
+                        //jagArr[r][indexJag] = matrix[r, c];
+                        //indexJag++;
+                    }
+
+                }
+                jagArr[r] = list.ToArray();
+                list.Clear();
+            }
+
+            //Print
+            for (int r = 0; r < jagArr.GetLength(0); r++)
+            {
+                for (int c = 0; c < jagArr[r].Length; c++)
+                {
+                    Console.Write($"{jagArr[r][c]} ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad7
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad7()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int[][] jagArr1 = new int[n][];
+            int[][] jagArr2 = new int[n][];
+
+            int broi = 0;
+            for (int i = 0; i < 2 * n; i++)
+            {
+                if (i < n)
+                {
+                    jagArr1[i] = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+                }
+                else
+                {
+                    jagArr2[broi] = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+                    broi++;
+                }
+            }
+            ///
+            int sumOfCels1 = 0;
+            for (int i = 0; i < n; i++)
+            {
+                sumOfCels1 += jagArr1[i].Length;
+            }
+            int sumOfCels2 = 0;
+            for (int i = 0; i < n; i++)
+            {
+                sumOfCels2 += jagArr2[i].Length;
+            }
+
+            ///
+            int duljinaPurviRed = jagArr1[0].Length - 1 + jagArr2[0].Length;
+            bool suvpadat = true;
+
+            for (int i = 0; i < n; i++)
+            {
+                if ((jagArr1[i].Length - 1 + jagArr2[i].Length) != duljinaPurviRed)
+                {
+                    suvpadat = false;
+                }
+            }
+            int[,] matrix = new int[n, duljinaPurviRed + 1];
+            if (suvpadat == true)
+            {
+
+                for (int row = 0; row < n; row++)
+                {
+                    for (int col = 0; col < jagArr1[row].Length; col++)
+                    {
+                        matrix[row, col] = jagArr1[row][col];
+                    }
+                    for (int col1 = jagArr2[row].Length; col1 > 0; col1--)
+                    {
+
+                        matrix[row, duljinaPurviRed + 1 - col1] = jagArr2[row][col1 - 1];
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"The total number of cells is: {sumOfCels1 + sumOfCels2}");
+            }
+            if (suvpadat == true)
+            {
+                for (int r = 0; r < n; r++)
+                {
+                    for (int c = 0; c < matrix.GetLength(1); c++)
+                    {
+                        Console.Write($"{matrix[r, c]} ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static void PoisonousPlants()
+        {
+            int numPlants = int.Parse(Console.ReadLine());
+            int[] plants = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(int.Parse).ToArray();
+
+            Stack<int> stackPlants = new Stack<int>(plants);
+
+            bool plantDied = false;
+            int days = 0;
+
+            do
+            {
+                plantDied = false;
+                Stack<int> nextDayPlants = new Stack<int>();
+
+                while (stackPlants.Count > 0)
+                {
+                    int last = stackPlants.Pop();
+                    if (stackPlants.Count > 0 && stackPlants.Peek() < last)
+                    {
+                        plantDied = true;
+                    }
+                    else
+                    {
+                        nextDayPlants.Push(last);
+                    }
+                }
+                //6 5 8 4 7 10 9
+                stackPlants = new Stack<int>(nextDayPlants);
+
+                if (plantDied)
+                {
+                    days++;
+                }
+
+            } while (plantDied);
+
+            Console.WriteLine(days);
+        }
+
+        /// <summary>
+        /// Multidimentional Array Exercice    Zad5
+        /// </summary>
+        static void MultidimentionalArrayExerciceZad5()
+        {
+            var vhod = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(int.Parse).ToArray();
             int rols = vhod[0];
             int columns = vhod[1];
 
@@ -38,7 +596,7 @@ namespace NikoletaSolution
 
                 string command = vh[1];
 
-
+                ///
                 if (command == "up" || command == "down")
                 {
                     int izmestvane = int.Parse(vh[2]) % columns;
@@ -48,22 +606,95 @@ namespace NikoletaSolution
                         for (int k = 0; k < izmestvane; k++)
                         {
                             int posledenRed = matrix[0, colona];
-                            for (int row = rols - 1; row > 0; row++)
+                            for (int row = 0; row < rols - 1; row++)
                             {
-                                matrix[row - 1, colona] = matrix[row, colona];
+                                matrix[row, colona] = matrix[row + 1, colona];
                             }
                             matrix[matrix.GetLength(0) - 1, colona] = posledenRed;
                         }
 
                     }
-                    else
+                    else if (command == "down")
                     {
+                        for (int k = 0; k < izmestvane; k++)
+                        {
+                            int purviRed = matrix[rols - 1, colona];
+                            for (int row = rols - 1; row > 0; row--)
+                            {
+                                matrix[row, colona] = matrix[row - 1, colona];
+                            }
+                            matrix[0, colona] = purviRed;
+                        }
 
                     }
                 }
                 else if (command == "left" || command == "right")
                 {
+                    int izmestvane = int.Parse(vh[2]) % rols;
+                    int red = int.Parse(vh[0]);
 
+                    if (command == "left")
+                    {
+                        for (int k = 0; k < izmestvane; k++)
+                        {
+                            int poslednaColona = matrix[red, 0];
+                            for (int col = 0; col < columns - 1; col++)
+                            {
+                                matrix[red, col] = matrix[red, col + 1];
+                            }
+                            matrix[red, columns - 1] = poslednaColona;
+                        }
+
+                    }
+                    else if (command == "right")
+                    {
+                        for (int k = 0; k < izmestvane; k++)
+                        {
+                            int purvaColona = matrix[red, columns - 1];
+                            for (int col = columns - 1; col > 0; col--)
+                            {
+                                matrix[red, col] = matrix[red, col - 1];
+                            }
+                            matrix[red, 0] = purvaColona;
+                        }
+
+                    }
+                }
+                ///
+
+            }
+
+
+            int broi = 1;
+            for (int row = 0; row < rols; row++)
+            {
+                for (int col = 0; col < columns; col++)
+                {
+
+                    if (matrix[row, col] == broi)
+                    {
+                        Console.WriteLine("No swap required");
+
+                    }
+                    else
+                    {
+                        for (int i = row; i < rols; i++)
+                        {
+                            for (int k = 0; k < columns; k++)
+                            {
+                                if (matrix[i, k] == broi)
+                                {
+                                    int dopulnitelna = matrix[i, k];
+                                    matrix[i, k] = matrix[row, col];
+                                    matrix[row, col] = dopulnitelna;
+
+                                    Console.WriteLine($"Swap ({row}, {col}) with ({i}, {k})");
+
+                                }
+                            }
+                        }
+                    }
+                    broi++;
                 }
             }
         }
