@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikoletaSolution", "NikoletaSolution\NikoletaSolution.csproj", "{BDAFF866-2364-4A9E-87AE-9F40C4A45087}"
 EndProject
@@ -14,6 +14,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CHsarpAdvanced", "CHsarpAdvanced", "{938F618C-9BBB-43D1-8403-106C225EA102}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regex", "Regex\Regex.csproj", "{39D3891D-B2AF-48BD-B952-E9B6969F7275}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exam", "Exam\Exam.csproj", "{CC112BE6-7CD4-4D9A-AEDC-8D3C055F3D29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Classes", "Classes\Classes.csproj", "{E6066196-3834-4058-A3DA-6E26E6A91C02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google", "Google\Google.csproj", "{84E0F9AE-5C64-4C88-92B8-6DA06FA2C2CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandPrix", "GrandPrix\GrandPrix.csproj", "{E1C39264-7E99-40F1-83D0-799BA5D979E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +49,22 @@ Global
 		{39D3891D-B2AF-48BD-B952-E9B6969F7275}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39D3891D-B2AF-48BD-B952-E9B6969F7275}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39D3891D-B2AF-48BD-B952-E9B6969F7275}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC112BE6-7CD4-4D9A-AEDC-8D3C055F3D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC112BE6-7CD4-4D9A-AEDC-8D3C055F3D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC112BE6-7CD4-4D9A-AEDC-8D3C055F3D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC112BE6-7CD4-4D9A-AEDC-8D3C055F3D29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6066196-3834-4058-A3DA-6E26E6A91C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6066196-3834-4058-A3DA-6E26E6A91C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6066196-3834-4058-A3DA-6E26E6A91C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6066196-3834-4058-A3DA-6E26E6A91C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84E0F9AE-5C64-4C88-92B8-6DA06FA2C2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84E0F9AE-5C64-4C88-92B8-6DA06FA2C2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84E0F9AE-5C64-4C88-92B8-6DA06FA2C2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84E0F9AE-5C64-4C88-92B8-6DA06FA2C2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1C39264-7E99-40F1-83D0-799BA5D979E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1C39264-7E99-40F1-83D0-799BA5D979E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1C39264-7E99-40F1-83D0-799BA5D979E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1C39264-7E99-40F1-83D0-799BA5D979E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +72,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A2F0F5D5-3E20-48FE-8C54-FD8AE7195FC1} = {938F618C-9BBB-43D1-8403-106C225EA102}
 		{39D3891D-B2AF-48BD-B952-E9B6969F7275} = {938F618C-9BBB-43D1-8403-106C225EA102}
+		{CC112BE6-7CD4-4D9A-AEDC-8D3C055F3D29} = {938F618C-9BBB-43D1-8403-106C225EA102}
+		{84E0F9AE-5C64-4C88-92B8-6DA06FA2C2CA} = {938F618C-9BBB-43D1-8403-106C225EA102}
 	EndGlobalSection
 EndGlobal
